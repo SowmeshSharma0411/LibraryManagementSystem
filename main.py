@@ -2,6 +2,16 @@ from tkinter import *
 from tkinter import ttk
 import tkinter.ttk
 
+from PIL import ImageTk, Image
+import mysql.connector
+from tkinter import messagebox
+from AddBook import *
+from DeleteBook import *
+from ViewBooks import *
+from IssueBook import *
+from ReturnBook import *
+from Auth import *
+
 def myfunc():
    root=Tk()
    root.title('Library Management System')
@@ -112,12 +122,12 @@ def myfunc():
 
    frameBtn=Frame(root,bg='powder blue',borderwidth=10,relief=RIDGE,padx=20).place(x=0,y=472,width=1275,height=57)
 
-   b1=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Add Data',font=('Times new roman',15,'bold')).place(x=6.8,y=480,width=200,height=40)
-   b2=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Show Data',font=('Times new roman',15,'bold')).place(x=205,y=480,width=200,height=40)
+   b1=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Add Data',font=('Times new roman',15,'bold'),command=addBook).place(x=6.8,y=480,width=200,height=40)
+   b2=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Show Data',font=('Times new roman',15,'bold'),command=View).place(x=205,y=480,width=200,height=40)
    b3=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Update',font=('Times new roman',15,'bold')).place(x=404,y=480,width=200,height=40)
-   b4=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Delete',font=('Times new roman',15,'bold')).place(x=603,y=480,width=200,height=40)
+   b4=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Delete',font=('Times new roman',15,'bold'),command=delete).place(x=603,y=480,width=200,height=40)
    b5=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Reset',font=('Times new roman',15,'bold')).place(x=802,y=480,width=230,height=40)
-   b6=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Exit',font=('Times new roman',15,'bold')).place(x=1030.8,y=480,width=235,height=40)
+   b6=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Exit',font=('Times new roman',15,'bold'),command=root.destroy).place(x=1030.8,y=480,width=235,height=40)
 
 
    # ===================================================Info Bar==================================
