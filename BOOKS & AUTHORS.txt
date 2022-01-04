@@ -1,0 +1,50 @@
+1. Data Structures and Algorithms --> Jeffrey D
+2. Concrete Engineering Mathematics --> Ronald Graham
+3. The Art of Computer Programming --> Donald Knuth
+4. Structure and Interpretation of Computer Programs --> Harold Abelson
+5. Structured Computer Organization --> Andrew S Tanenbaum
+6. Benchmarking Functional Languages --> Pieter H Hartel
+7. Automatic Program Synthesis --> Zohar Manna
+8. Logic for Problem Solving --> Kowalski
+9. Clean Code --> Robert C Martin
+10. Introduction to Algorithms --> Thomas H Cormen
+11. Design Patterns --> Richard Helm
+12. Python --> Charles Dierbach
+13. The Pragmatic Programmer --> Andrew Hunt
+14. The C Programming Language --> Dennis R Itchie
+15. OOP with C++ --> E Balaguruswamy
+16. Beginners Guide to C --> Greg Perry
+17. JavaScript for Beginners --> Nick Morgan
+18. Hacking --> Jon Erickson
+19. The Art of Invisibility --> Kevin Mitnick
+20. Learning JavaScript --> Addy Osmani
+21. Make your Neural Network --> Tariq Rashid
+22. Working effectively with Legacy Code --> Michael C Feathers
+23. Code Complete --> Steve McConnell
+24. Soft Skills of a Developer --> Manual John
+25. Domain-Driven Design --> Evans Eric
+26. Elements of Reusable Object Oriented Software --> John Vlissides
+27. Enterprise Integration Methods --> Gregor Hohpe
+28. Headfirst Design Patterns --> Eric Freeman
+29. The DevOps Handbook --> Jez Humble
+30. Artificial Intelligence for Dummies --> Luca Massaron
+31. AI : A Modern Approach --> Peter Norvig
+32. Eloquent JavaScript --> Marijn Haverbekedives
+33. Learn MySQL, PHP & JavaScript --> Robin Nixon
+34. C++ Primer --> Barbara E Moo
+35. R For Data Science --> Hadley Wickham
+36. C# 8.0 --> Mark J Price
+37. Linux Pocket Guide --> Jason Cannon
+38. Excel 2019 Bible --> Michael
+39. Peopleware --> Tom DeMarco
+40. Working In Public --> Nadia Eghbal
+41. Python Crash Course --> Eric Matthews
+42. Automate with Python --> A I Sweigart
+43. Learning Python --> Mark Lutz
+44. Head-First Python --> Paul Barry
+45. Think Like a Computer Scientist --> Jeff Elkner
+46. A Bite of Python --> C H Swaroop
+47. ML with Pyhton --> Andreas C Muller
+48. Fluent Python  --> Luciano Ramalho
+49. Cookbook - Master Python3 --> David Beazly
+50. Learn Python the Hard Way --> Zed A

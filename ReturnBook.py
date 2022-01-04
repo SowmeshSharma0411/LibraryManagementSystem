@@ -11,7 +11,7 @@ con = mysql.connector.connect(host="localhost",user="root",password="root",datab
 cur = con.cursor()
 
 # Enter Table Names here
-issueTable = "books_issued" #Issue Table
+#issueTable = "books_issued" #Issue Table
 bookTable = "books" #Book Table
 
 
@@ -23,7 +23,7 @@ def returnn():
     
     bid = bookInfo1.get()
 
-    extractBid = "select bid from "+issueTable
+    extractBid = "select bid from "+bookTable
     try:
         cur.execute(extractBid)
         con.commit()
@@ -31,13 +31,13 @@ def returnn():
             allBid.append(i[0])
         
         if bid in allBid:
-            checkAvail = "select status from "+bookTable+" where bid = '"+bid+"'"
+            checkAvail = "select copies from "+bookTable+" where bid = '"+bid+"'"
             cur.execute(checkAvail)
             con.commit()
             for i in cur:
                 check = i[0]
                 
-            if check == 'issued':
+            if int(check) >0 :
                 status = True
             else:
                 status = False
@@ -48,11 +48,15 @@ def returnn():
         messagebox.showinfo("Error","Can't fetch Book IDs")
     
     
-    issueSql = "delete from "+issueTable+" where bid = '"+bid+"'"
+    #issueSql = "delete from "+issueTable+" where bid = '"+bid+"'"
   
-    print(bid in allBid)
-    print(status)
-    updateStatus = "update "+bookTable+" set status = 'avail' where bid = '"+bid+"'"
+    #print(bid in allBid)
+    #print(status)
+    temp="SELECT copies from books WHERE bid = "+bid
+    cur.execute(temp)
+    temp=int(temp)
+    temp=temp-1
+    updateStatus = "update "+bookTable+" set copies = "+temp+" where bid = '"+bid+"'"
     try:
         if bid in allBid and status == True:
             cur.execute(issueSql)
@@ -111,3 +115,6 @@ def returnBook():
     quitBtn.place(relx=0.53,rely=0.9, relwidth=0.18,relheight=0.08)
     
     root.mainloop()
+
+
+    #IN UPDATE : Return Books;Issue Book;Delete Books ;

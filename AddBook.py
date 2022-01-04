@@ -10,7 +10,6 @@ def bookRegister():
     author = bookInfo3.get()
     #status = bookInfo4.get()
     insertBooks = "insert into " + bookTable +" (title,author,copies) values('" + title + "','" + author + "',5)"
-    print(insertBooks)
     try:
         cur.execute(insertBooks)
         con.commit()

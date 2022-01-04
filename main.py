@@ -12,7 +12,16 @@ from IssueBook import *
 from ReturnBook import *
 from Auth import *
 
+import mysql.connector
+
+mypass = "root"
+mydatabase="db"
+
+con = mysql.connector.connect(host="localhost",user="root",password="root",database="db")
+cur = con.cursor()
+
 def myfunc():
+
    root=Tk()
    root.title('Library Management System')
    root.geometry('1600x800')
@@ -100,11 +109,25 @@ def myfunc():
    a=Listbox(DataFrameRight,font=('times new roman',12,'bold'),width=29,height=16)
    a.place(x=765,y=130)
 
-   b=['Python For Beginners','The Python Crash Course','Python Programming','OOP Using Java','Introduction to C++','Guide to C Programming',
-      'Introduction to Python','Data Structures','Algorithms','Arduino Programming','Java Programming','Game Development','Robotics',
-      'Quantum Mechanics','Physical Chemistry','Ethical Hacking','Dart for Beginners','Advanced Python Programming','Let Us Learn C',
-      'Advanced C Programming','Advanced Java Programming','Introduction to Java','Java for Beginners','Complete Reference for C++','Think JAVA',
-      'Android Games using JAVA','Learn Web Scraping','Programming for Beginners','Guide to Ubuntu Linux','Learn Django in 30 days','Learn Scratch with Me']
+   b=[]
+   author=[]
+
+   s="SELECT title FROM books"
+   cur.execute(s)
+
+   for x in cur:
+      b.append(x)
+
+   print(b)
+
+   s="SELECT author FROM books"
+   cur.execute(s)
+
+   for x in cur:
+      author.append(x)
+
+   print(author)
+
    for item in b:
       a.insert(END,item)
 
@@ -183,3 +206,11 @@ def myfunc():
    scrollbarx.place(x=0,y=630,width=1260)
 
    library_table.configure(yscrollcommand=scrollbary.set,xscrollcommand=scrollbarx.set)
+
+
+   #Connecting list and database; Cuz Suhaas' List is diff from the books in the database.
+
+   #Fine=Box Should be removed : Instead a small Msg Box.
+
+   #For autoEmails : A window List of all PPl who havent submitted the books on time;
+   #No lost books.
