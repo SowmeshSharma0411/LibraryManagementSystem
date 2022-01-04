@@ -8,8 +8,9 @@ def bookRegister():
     # bid = 1,2,3....
     title = bookInfo2.get()
     author = bookInfo3.get()
-    status = bookInfo4.get()
-    insertBooks = "insert into " + bookTable + " values('" + title + "','" + author + "','" + status + "')"
+    #status = bookInfo4.get()
+    insertBooks = "insert into " + bookTable +" (title,author,copies) values('" + title + "','" + author + "',5)"
+    print(insertBooks)
     try:
         cur.execute(insertBooks)
         con.commit()
@@ -20,7 +21,7 @@ def bookRegister():
     # print(bid)
     print(title)
     print(author)
-    print(status)
+    #print(status)
 
     root.destroy()
 
@@ -41,7 +42,7 @@ def addBook():
     cur = con.cursor()
 
     # Enter Table Names here
-    bookTable = "books (title,author,status)"
+    bookTable = "books"
     Canvas1 = Canvas(root)
 
     Canvas1.config(bg="#ff6e40")
@@ -78,11 +79,11 @@ def addBook():
     bookInfo3.place(relx=0.3, rely=0.50, relwidth=0.62, relheight=0.08)
 
     # Book Status
-    lb4 = Label(labelFrame, text="Status(1/0) : ", bg='black', fg='white')
+    '''lb4 = Label(labelFrame, text="Status(1/0) : ", bg='black', fg='white')
     lb4.place(relx=0.05, rely=0.65, relheight=0.08)
 
     bookInfo4 = Entry(labelFrame)
-    bookInfo4.place(relx=0.3, rely=0.65, relwidth=0.62, relheight=0.08)
+    bookInfo4.place(relx=0.3, rely=0.65, relwidth=0.62, relheight=0.08)'''
 
     # Submit Button
     SubmitBtn = Button(root, text="SUBMIT", bg='#d1ccc0', fg='black', command=bookRegister)
@@ -92,3 +93,5 @@ def addBook():
     quitBtn.place(relx=0.53, rely=0.9, relwidth=0.18, relheight=0.08)
 
     root.mainloop()
+
+    #Instead of status : Copies : This will come when the borrow fnc comes intom pic

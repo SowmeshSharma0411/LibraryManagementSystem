@@ -11,27 +11,37 @@ con = mysql.connector.connect(host="localhost",user="root",password="root",datab
 cur = con.cursor()
 
 # Enter Table Names here
-issueTable = "books_issued" 
+#issueTable = "books_issued"
 bookTable = "books" #Book Table
 
 
 def deleteBook():
     
     bid = bookInfo1.get()
-    
+
+    cur.execute("Select * from "+bookTable)
+    i=0
+    for x in cur:
+       i+=1
+
+    if(int(bid)>i):
+        messagebox.showinfo("Please check Book ID")
+        return
+
+    #flag1="select title from "+bookTable+" where bid = '"+bid+"'"
     deleteSql = "delete from "+bookTable+" where bid = '"+bid+"'"
-    deleteIssue = "delete from "+issueTable+" where bid = '"+bid+"'"
+    #deleteIssue = "delete from "+issueTable+" where bid = '"+bid+"'"
     try:
+        #cur.execute(flag1)
         cur.execute(deleteSql)
         con.commit()
-        cur.execute(deleteIssue)
-        con.commit()
         messagebox.showinfo('Success',"Book Record Deleted Successfully")
-    except:
-        messagebox.showinfo("Please check Book ID")
-    
 
-    print(bid)
+        
+    except:
+        #print("Hi")
+        messagebox.showinfo("Please check Book ID")
+
 
     bookInfo1.delete(0, END)
     root.destroy()
@@ -68,10 +78,13 @@ def delete():
     bookInfo1.place(relx=0.3,rely=0.5, relwidth=0.62)
     
     #Submit Button
-    SubmitBtn = Button(root,text="SUBMIT",bg='#d1ccc0', fg='black',command=deleteBook)
+    SubmitBtn = Button(root,text="Submit",bg='#d1ccc0', fg='black',command=deleteBook)
     SubmitBtn.place(relx=0.28,rely=0.9, relwidth=0.18,relheight=0.08)
     
     quitBtn = Button(root,text="Quit",bg='#f7f1e3', fg='black', command=root.destroy)
     quitBtn.place(relx=0.53,rely=0.9, relwidth=0.18,relheight=0.08)
     
     root.mainloop()
+
+    #AutoInc-Problem--Hafta Reset It
+
