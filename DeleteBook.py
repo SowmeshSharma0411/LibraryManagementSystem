@@ -24,6 +24,7 @@ def deleteBook():
     for x in cur:
        i+=1
 
+    i=i-1
     if(int(bid)>i):
         messagebox.showinfo("Please check Book ID")
         return
@@ -86,5 +87,4 @@ def delete():
     
     root.mainloop()
 
-    #AutoInc-Problem--Hafta Reset It
-
+    #BID--Not Req : Title+Author===>The label : Drop Down :

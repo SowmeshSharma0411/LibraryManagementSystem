@@ -56,6 +56,4 @@ def View():
 
     root.mainloop()
 
-    #Alignment of things :
-
-    #Scroll Horizontal And Vertical : Suhas' work
+    #Alignment of things :   Add Pagination

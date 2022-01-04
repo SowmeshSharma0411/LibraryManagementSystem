@@ -208,9 +208,13 @@ def myfunc():
    library_table.configure(yscrollcommand=scrollbary.set,xscrollcommand=scrollbarx.set)
 
 
-   #Connecting list and database; Cuz Suhaas' List is diff from the books in the database.
-
    #Fine=Box Should be removed : Instead a small Msg Box.
 
    #For autoEmails : A window List of all PPl who havent submitted the books on time;
    #No lost books.
+
+   #3Menus : Manage User : The new GUI Window + Manage Books + Manage Borrowers.
+
+   #As soon as u login : Dashboard: (old proj) :
+
+   #Add User : Another Fnc :
