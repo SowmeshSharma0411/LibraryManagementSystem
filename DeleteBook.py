@@ -87,4 +87,4 @@ def delete():
     
     root.mainloop()
 
-    #BID--Not Req : Title+Author===>The label : Drop Down :
+    #BID--Not Req : Title+Author===>The label : Drop Down List :
