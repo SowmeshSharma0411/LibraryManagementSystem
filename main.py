@@ -109,6 +109,7 @@ def myfunc():
    a=Listbox(DataFrameRight,font=('times new roman',12,'bold'),width=29,height=16)
    a.place(x=765,y=130)
 
+   #Taking Books from the database into a list :
    b=[]
    author=[]
 
@@ -118,15 +119,11 @@ def myfunc():
    for x in cur:
       b.append(x)
 
-   print(b)
-
    s="SELECT author FROM books"
    cur.execute(s)
 
    for x in cur:
       author.append(x)
-
-   print(author)
 
    for item in b:
       a.insert(END,item)

@@ -1,7 +1,10 @@
+import tkinter
 from tkinter import *
 from PIL import ImageTk,Image
 from tkinter import messagebox
 import mysql.connector
+
+from tkinter import ttk
 
 # Add your own database name and password here to reflect in the code
 mypass = "root"
@@ -11,15 +14,42 @@ con = mysql.connector.connect(host="localhost",user="root",password="root",datab
 cur = con.cursor()
 
 # Enter Table Names here
-#issueTable = "books_issued"
 bookTable = "books" #Book Table
 
+b=[]
+author=[]
 
-def deleteBook():
-    
-    bid = bookInfo1.get()
+s = "SELECT title FROM books"
+cur.execute(s)
 
-    cur.execute("Select * from "+bookTable)
+for x in cur:
+    b.append(x)
+
+s = "SELECT author FROM books"
+cur.execute(s)
+
+for x in cur:
+    author.append(x)
+
+def deleteBook(e):
+
+    title=bookInfo1.get()
+
+    s=""
+    for i in title:
+        if(i.isalnum())or (i.isspace()):
+            s+=i
+    title=s
+    for i in range(len(b)):
+        if(b[i][0]==title):
+            break
+    authors=[]
+    authors.append(author[i])
+    bookInfo2.config(value=authors)
+
+    au=author[i]
+
+    '''cur.execute("Select * from "+bookTable)
     i=0
     for x in cur:
        i+=1
@@ -27,25 +57,23 @@ def deleteBook():
     i=i-1
     if(int(bid)>i):
         messagebox.showinfo("Please check Book ID")
-        return
+        return'''
 
-    #flag1="select title from "+bookTable+" where bid = '"+bid+"'"
-    deleteSql = "delete from "+bookTable+" where bid = '"+bid+"'"
-    #deleteIssue = "delete from "+issueTable+" where bid = '"+bid+"'"
+
+
+    '''deleteSql = "delete from "+bookTable+" where title = '"+title+"'"
     try:
-        #cur.execute(flag1)
         cur.execute(deleteSql)
         con.commit()
         messagebox.showinfo('Success',"Book Record Deleted Successfully")
 
         
     except:
-        #print("Hi")
-        messagebox.showinfo("Please check Book ID")
+        messagebox.showinfo("Please enter the correct title of the book")
 
 
     bookInfo1.delete(0, END)
-    root.destroy()
+    root.destroy()'''
     
 def delete(): 
     
@@ -69,22 +97,51 @@ def delete():
     headingLabel.place(relx=0,rely=0, relwidth=1, relheight=1)
     
     labelFrame = Frame(root,bg='black')
-    labelFrame.place(relx=0.1,rely=0.3,relwidth=0.8,relheight=0.5)   
+    labelFrame.place(relx=0.1,rely=0.3,relwidth=0.8,relheight=0.5)
         
-    # Book ID to Delete
+    ''' # Book ID to Delete
     lb2 = Label(labelFrame,text="Book ID : ", bg='black', fg='white')
     lb2.place(relx=0.05,rely=0.5)
         
     bookInfo1 = Entry(labelFrame)
-    bookInfo1.place(relx=0.3,rely=0.5, relwidth=0.62)
+    bookInfo1.place(relx=0.3,rely=0.5, relwidth=0.62)'''
+
+    '''# Title of book :
+    lb2 = Label(labelFrame, text="Title : ", bg='black', fg='white')
+    lb2.place(relx=0.05, rely=0.5)
+
+    bookInfo1 = Entry(labelFrame)
+    bookInfo1.place(relx=0.3, rely=0.5, relwidth=0.62)'''
+
+    # creating DropBox
+    lb2 = Label(labelFrame, text="Book Title : ", bg='black', fg='white')
+    lb2.place(relx=0.05, rely=0.35)
+
+    bookInfo1 = ttk.Combobox(root,value=b)
+    #bookinfo1.current(0)
+    bookInfo1.pack()
+    bookInfo1.place(relx=0.3,rely=0.35, relwidth=0.30)
+
+    #DropBox 2 :
+    lb3 = Label(labelFrame, text="Book Author : ", bg='black', fg='white')
+    lb3.place(relx=0.05, rely=0.5)
+
+    bookInfo2 = ttk.Combobox(root, value=author)
+    # bookinfo2.current(0)
+    bookInfo2.pack()
+    bookInfo2.place(relx=0.3, rely=0.5, relwidth=0.30)
+
+    bookInfo1.bind("<<ComboboxSelected>>", deleteBook)
+
     
-    #Submit Button
-    SubmitBtn = Button(root,text="Submit",bg='#d1ccc0', fg='black',command=deleteBook)
-    SubmitBtn.place(relx=0.28,rely=0.9, relwidth=0.18,relheight=0.08)
+    #Delete Button
+    '''DeleteBtn = Button(root,text="Delete",bg='#d1ccc0', fg='black',command=deleteBook)
+    DeleteBtn.place(relx=0.28,rely=0.9, relwidth=0.18,relheight=0.08)
     
     quitBtn = Button(root,text="Quit",bg='#f7f1e3', fg='black', command=root.destroy)
-    quitBtn.place(relx=0.53,rely=0.9, relwidth=0.18,relheight=0.08)
+    quitBtn.place(relx=0.53,rely=0.9, relwidth=0.18,relheight=0.08)'''
     
     root.mainloop()
 
-    #BID--Not Req : Title+Author===>The label : Drop Down List :
+    #Book Record Deleted Sucessfully for everything :
+    #Hafta Add Drop Down list : in delete :with a scroll bar.
