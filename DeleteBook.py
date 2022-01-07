@@ -3,7 +3,7 @@ from tkinter import *
 from PIL import ImageTk,Image
 from tkinter import messagebox
 import mysql.connector
-
+from functools import partial
 from tkinter import ttk
 
 # Add your own database name and password here to reflect in the code
@@ -35,12 +35,6 @@ def select(e):
 
     title = bookInfo1.get()
 
-    DeleteBtn = Button(root, text="Delete", bg='#d1ccc0', fg='black', command=deleteBook(title))
-    DeleteBtn.place(relx=0.28, rely=0.9, relwidth=0.18, relheight=0.08)
-
-    quitBtn = Button(root, text="Quit", bg='#f7f1e3', fg='black', command=root.destroy)
-    quitBtn.place(relx=0.53, rely=0.9, relwidth=0.18, relheight=0.08)
-
     s=""
     for i in title:
         if(i.isalnum())or (i.isspace()):
@@ -55,7 +49,13 @@ def select(e):
 
     au=author[i]
 
-    return(title)
+    DeleteBtn = Button(root, text="Delete", bg='#d1ccc0', fg='black', command=partial(deleteBook,title))
+    DeleteBtn.place(relx=0.28, rely=0.9, relwidth=0.18, relheight=0.08)
+
+    quitBtn = Button(root, text="Quit", bg='#f7f1e3', fg='black', command=root.destroy)
+    quitBtn.place(relx=0.53, rely=0.9, relwidth=0.18, relheight=0.08)
+
+    root.mainloop()
     
 def delete():
     
@@ -80,20 +80,6 @@ def delete():
     
     labelFrame = Frame(root,bg='black')
     labelFrame.place(relx=0.1,rely=0.3,relwidth=0.8,relheight=0.5)
-        
-    ''' # Book ID to Delete
-    lb2 = Label(labelFrame,text="Book ID : ", bg='black', fg='white')
-    lb2.place(relx=0.05,rely=0.5)
-        
-    bookInfo1 = Entry(labelFrame)
-    bookInfo1.place(relx=0.3,rely=0.5, relwidth=0.62)'''
-
-    '''# Title of book :
-    lb2 = Label(labelFrame, text="Title : ", bg='black', fg='white')
-    lb2.place(relx=0.05, rely=0.5)
-
-    bookInfo1 = Entry(labelFrame)
-    bookInfo1.place(relx=0.3, rely=0.5, relwidth=0.62)'''
 
     # creating DropBox
     lb2 = Label(labelFrame, text="Book Title : ", bg='black', fg='white')
@@ -131,17 +117,14 @@ def delete():
 def deleteBook(title):
 
     deleteSql = "delete from " + bookTable + " where title = '" + title + "'"
-    '''for i in range(1000000):
-        pass'''
-    print("hi")
     try:
         cur.execute(deleteSql)
         con.commit()
         messagebox.showinfo('Success', "Book Record Deleted Successfully")
-
-
     except:
         messagebox.showinfo("Please enter the correct title of the book")
 
     bookInfo1.delete(0, END)
     root.destroy()
+
+#Suhas Align the Drop down box n all : make the screen look neater :
