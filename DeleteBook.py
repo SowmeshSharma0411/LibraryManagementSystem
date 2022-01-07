@@ -31,9 +31,15 @@ cur.execute(s)
 for x in cur:
     author.append(x)
 
-def deleteBook(e):
+def select(e):
 
-    title=bookInfo1.get()
+    title = bookInfo1.get()
+
+    DeleteBtn = Button(root, text="Delete", bg='#d1ccc0', fg='black', command=deleteBook(title))
+    DeleteBtn.place(relx=0.28, rely=0.9, relwidth=0.18, relheight=0.08)
+
+    quitBtn = Button(root, text="Quit", bg='#f7f1e3', fg='black', command=root.destroy)
+    quitBtn.place(relx=0.53, rely=0.9, relwidth=0.18, relheight=0.08)
 
     s=""
     for i in title:
@@ -49,35 +55,11 @@ def deleteBook(e):
 
     au=author[i]
 
-    '''cur.execute("Select * from "+bookTable)
-    i=0
-    for x in cur:
-       i+=1
-
-    i=i-1
-    if(int(bid)>i):
-        messagebox.showinfo("Please check Book ID")
-        return'''
-
-
-
-    '''deleteSql = "delete from "+bookTable+" where title = '"+title+"'"
-    try:
-        cur.execute(deleteSql)
-        con.commit()
-        messagebox.showinfo('Success',"Book Record Deleted Successfully")
-
-        
-    except:
-        messagebox.showinfo("Please enter the correct title of the book")
-
-
-    bookInfo1.delete(0, END)
-    root.destroy()'''
+    return(title)
     
-def delete(): 
+def delete():
     
-    global bookInfo1,bookInfo2,bookInfo3,bookInfo4,Canvas1,con,cur,bookTable,root
+    global bookInfo1,bookInfo2,bookInfo3,bookInfo4,Canvas1,con,cur,bookTable,root,title
     
     root = Tk()
     root.title("Library")
@@ -131,7 +113,7 @@ def delete():
     bookInfo2.pack()
     bookInfo2.place(relx=0.3, rely=0.5, relwidth=0.30)
 
-    bookInfo1.bind("<<ComboboxSelected>>", deleteBook)
+    bookInfo1.bind("<<ComboboxSelected>>", select)
 
     
     #Delete Button
@@ -145,3 +127,21 @@ def delete():
 
     #Book Record Deleted Sucessfully for everything :
     #Hafta Add Drop Down list : in delete :with a scroll bar.
+
+def deleteBook(title):
+
+    deleteSql = "delete from " + bookTable + " where title = '" + title + "'"
+    '''for i in range(1000000):
+        pass'''
+    print("hi")
+    try:
+        cur.execute(deleteSql)
+        con.commit()
+        messagebox.showinfo('Success', "Book Record Deleted Successfully")
+
+
+    except:
+        messagebox.showinfo("Please enter the correct title of the book")
+
+    bookInfo1.delete(0, END)
+    root.destroy()

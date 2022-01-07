@@ -94,3 +94,4 @@ def addBook():
     root.mainloop()
 
     #Instead of status : Copies : This will come when the borrow fnc comes intom pic
+    #No duplicate book can be added :
