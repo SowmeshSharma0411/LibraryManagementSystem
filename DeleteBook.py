@@ -111,7 +111,6 @@ def delete():
     
     root.mainloop()
 
-    #Book Record Deleted Sucessfully for everything :
     #Hafta Add Drop Down list : in delete :with a scroll bar.
 
 def deleteBook(title):
