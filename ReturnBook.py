@@ -2,6 +2,8 @@ from tkinter import *
 from PIL import ImageTk,Image
 from tkinter import messagebox
 import mysql.connector
+from fines import *
+import datetime
 
 # Add your own database name and password here to reflect in the code
 mypass = "root"
@@ -11,74 +13,53 @@ con = mysql.connector.connect(host="localhost",user="root",password="root",datab
 cur = con.cursor()
 
 # Enter Table Names here
-#issueTable = "books_issued" #Issue Table
-bookTable = "books" #Book Table
+bookTable = "borrowers"
+bookTable2="books"
 
+global info,srn
+info=[]
 
-allBid = [] #List To store all Book IDs
+def returnn(l):
 
-def returnn():
+    srn=l[0]
+    first=l[1]
+    last=l[2]
     
-    global SubmitBtn,labelFrame,lb1,bookInfo1,quitBtn,root,Canvas1,status
-    
-    bid = bookInfo1.get()
+    #global SubmitBtn,labelFrame,lb1,bookInfo1,quitBtn,root,Canvas1,status
 
-    extractBid = "select bid from "+bookTable
+    extractBid = "select ID, FirstName, LastName, Mobile, Email, Bookid, BookTitle, Author, DateBorrowed, datedue from "+bookTable+" where SRN = '"+srn+"'"
+    deleteSql = "delete from " + bookTable + " where SRN = '" + srn + "'"
+    fetchbooks="SELECT copies from "+bookTable2+" where SRN = '" + srn + "'"
+    cpy=0
+    fine=0
     try:
         cur.execute(extractBid)
         con.commit()
         for i in cur:
-            allBid.append(i[0])
-        
-        if bid in allBid:
-            checkAvail = "select copies from "+bookTable+" where bid = '"+bid+"'"
-            cur.execute(checkAvail)
+            info.append(i)
+            #If i can ill return some of the book details back to the main func : so that it can be autofilled in those textBoxes
+            cur.execute(fetchbooks)
             con.commit()
             for i in cur:
-                check = i[0]
-                
-            if int(check) >0 :
-                status = True
-            else:
-                status = False
+                cpy=int(i[0])
+            cpy-=1
+            addSql = "UPDATE " + bookTable2 + "/n" + "SET copies =",cpy,"where SRN = '" + srn + "'"
+            cur.execute(addSql)
+            con.commit()
+            fine = fines(info[7], info[8])
+            #Now ill have to show a window of the ReturnBook Summary
+            returnBook()
 
-        else:
-            messagebox.showinfo("Error","Book ID not present")
-    except:
-        messagebox.showinfo("Error","Can't fetch Book IDs")
-    
-    
-    #issueSql = "delete from "+issueTable+" where bid = '"+bid+"'"
-  
-    #print(bid in allBid)
-    #print(status)
-    temp="SELECT copies from books WHERE bid = "+bid
-    cur.execute(temp)
-    temp=int(temp)
-    temp=temp-1
-    updateStatus = "update "+bookTable+" set copies = "+temp+" where bid = '"+bid+"'"
-    try:
-        if bid in allBid and status == True:
-            cur.execute(issueSql)
+            cur.execute(deleteSql)
             con.commit()
-            cur.execute(updateStatus)
-            con.commit()
-            messagebox.showinfo('Success',"Book Returned Successfully")
-        else:
-            allBid.clear()
-            messagebox.showinfo('Message',"Please check the book ID")
-            root.destroy()
-            return
+
     except:
-        messagebox.showinfo("Search Error","The value entered is wrong, Try again")
-    
-    
-    allBid.clear()
+        messagebox.showinfo("Error", "SRN Entered isnt registered in the 'Borrowers List'")
     root.destroy()
     
-def returnBook(): 
+def returnBook():
     
-    global bookInfo1,SubmitBtn,quitBtn,Canvas1,con,cur,root,labelFrame, lb1
+    global quitBtn,Canvas1,con,cur,root,labelFrame
     
     root = Tk()
     root.title("Library")
@@ -94,27 +75,24 @@ def returnBook():
     headingFrame1 = Frame(root,bg="#FFBB00",bd=5)
     headingFrame1.place(relx=0.25,rely=0.1,relwidth=0.5,relheight=0.13)
         
-    headingLabel = Label(headingFrame1, text="Return Book", bg='black', fg='white', font=('Courier',15))
+    headingLabel = Label(headingFrame1, text="Return Summary", bg='black', fg='white', font=('Courier',15))
     headingLabel.place(relx=0,rely=0, relwidth=1, relheight=1)
     
     labelFrame = Frame(root,bg='black')
-    labelFrame.place(relx=0.1,rely=0.3,relwidth=0.8,relheight=0.5)   
-        
-    # Book ID to Delete
-    lb1 = Label(labelFrame,text="Book ID : ", bg='black', fg='white')
-    lb1.place(relx=0.05,rely=0.5)
-        
-    bookInfo1 = Entry(labelFrame)
-    bookInfo1.place(relx=0.3,rely=0.5, relwidth=0.62)
-    
-    #Submit Button
-    SubmitBtn = Button(root,text="Return",bg='#d1ccc0', fg='black',command=returnn)
-    SubmitBtn.place(relx=0.28,rely=0.9, relwidth=0.18,relheight=0.08)
-    
+    labelFrame.place(relx=0.1,rely=0.3,relwidth=0.8,relheight=0.5)
+
+    Label(labelFrame, text="%-30s%-60s%-40s%-10s" % ('SRN', 'FirstName', 'LastName', 'BID', 'Title', 'Author'), bg='black',
+          fg='white').place(relx=0.07, rely=0.1)
+    Label(labelFrame, text="----------------------------------------------------------------------------", bg='black',
+          fg='white').place(relx=0.05, rely=0.2)
+
+    Label(labelFrame, text="%-30s%-60s%-40s%-10s" % (srn,info[1], info[2], info[5],info[6],info[7]), bg='black',
+            fg='white').place(relx=0.07, rely=0.3)
+
     quitBtn = Button(root,text="Quit",bg='#f7f1e3', fg='black', command=root.destroy)
     quitBtn.place(relx=0.53,rely=0.9, relwidth=0.18,relheight=0.08)
     
     root.mainloop()
 
 
-    #IN UPDATE : Return Books;Issue Book;Delete Books ;
+#Im assuming issuebook takes in borrowed and calculates due date : and updates it in the borrowers table.
