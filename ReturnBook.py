@@ -10,7 +10,7 @@ mypass = "root"
 mydatabase="db"
 
 con = mysql.connector.connect(host="localhost",user="root",password="root",database="db")
-cur = con.cursor()
+cur = con.cursor(buffered=True)
 
 # Enter Table Names here
 bookTable = "borrowers"
@@ -27,35 +27,43 @@ def returnn(l):
     
     #global SubmitBtn,labelFrame,lb1,bookInfo1,quitBtn,root,Canvas1,status
 
-    extractBid = "select ID, FirstName, LastName, Mobile, Email, Bookid, BookTitle, Author, DateBorrowed, datedue from "+bookTable+" where SRN = '"+srn+"'"
-    deleteSql = "delete from " + bookTable + " where SRN = '" + srn + "'"
-    fetchbooks="SELECT copies from "+bookTable2+" where SRN = '" + srn + "'"
+    extractBid = "SELECT SRN, FirstName, LastName, Bookid, BookTitle, Author, DateBorrowed, datedue FROM "+bookTable+" WHERE SRN = '"+str(srn)+"'"
+    #Ive removed Mobile and email for now
+    deleteSql = "DELETE FROM borrowers WHERE SRN = "+str(srn)
     cpy=0
     fine=0
-    try:
-        cur.execute(extractBid)
-        con.commit()
-        for i in cur:
-            info.append(i)
-            #If i can ill return some of the book details back to the main func : so that it can be autofilled in those textBoxes
-            cur.execute(fetchbooks)
-            con.commit()
-            for i in cur:
-                cpy=int(i[0])
-            cpy-=1
-            addSql = "UPDATE " + bookTable2 + "/n" + "SET copies =",cpy,"where SRN = '" + srn + "'"
-            cur.execute(addSql)
-            con.commit()
-            fine = fines(info[7], info[8])
-            #Now ill have to show a window of the ReturnBook Summary
-            returnBook()
+    #try:
+    cur.execute(extractBid)
+    #con.commit()
+    for i in cur:
+        info.append(i)
 
-            cur.execute(deleteSql)
-            con.commit()
+    if(len(info)==0):
+        messagebox.showwarning("ERROR!!","No Book Borrowed!")
+        return
 
-    except:
-        messagebox.showinfo("Error", "SRN Entered isnt registered in the 'Borrowers List'")
-    root.destroy()
+    fetchbooks = "SELECT copies FROM books WHERE title = '" + info[0][4] + "'"
+    cur.execute(fetchbooks)
+
+    for i in cur:
+        cpy = int(i[0][0])
+    cpy += 1
+    addSql = "UPDATE books \nSET copies = '%s' \nWHERE title = '%s';" % (str(cpy), str(info[0][4]))
+    cur.execute(addSql)
+    con.commit()
+    fine = fines(info[0][6], info[0][7])
+    #Now ill have to show a window of the ReturnBook Summary
+
+    cur.execute(deleteSql)
+    con.commit()
+
+    info.append(fine)
+
+    returnBook()
+
+    '''except:
+        messagebox.showinfo("Error", "SRN Entered isnt registered in the 'Borrowers List'")'''
+    return
     
 def returnBook():
     
@@ -81,12 +89,11 @@ def returnBook():
     labelFrame = Frame(root,bg='black')
     labelFrame.place(relx=0.1,rely=0.3,relwidth=0.8,relheight=0.5)
 
-    Label(labelFrame, text="%-30s%-60s%-40s%-10s" % ('SRN', 'FirstName', 'LastName', 'BID', 'Title', 'Author'), bg='black',
+    Label(labelFrame, text="%-30s%-60s%-40s%-50s%-50s%-50s%-50s" % ('SRN', 'FirstName', 'LastName', 'BID', 'Title', 'Author','Fine'), bg='black',
           fg='white').place(relx=0.07, rely=0.1)
     Label(labelFrame, text="----------------------------------------------------------------------------", bg='black',
           fg='white').place(relx=0.05, rely=0.2)
-
-    Label(labelFrame, text="%-30s%-60s%-40s%-10s" % (srn,info[1], info[2], info[5],info[6],info[7]), bg='black',
+    Label(labelFrame, text="%-30s%-60s%-40s%-50s%-50s%-50s%-50s" % (info[0][0],info[0][1], info[0][2], info[0][3],info[0][4],info[0][5],info[1]), bg='black',
             fg='white').place(relx=0.07, rely=0.3)
 
     quitBtn = Button(root,text="Quit",bg='#f7f1e3', fg='black', command=root.destroy)
@@ -96,3 +103,6 @@ def returnBook():
 
 
 #Im assuming issuebook takes in borrowed and calculates due date : and updates it in the borrowers table.
+#Capture Return Date :
+
+#Copies in AddBooks is acting very wierd  : See to It.

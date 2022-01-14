@@ -32,3 +32,4 @@ def ret():
         insertBooks = "insert into " + bookTable + " (title,author,copies) values('" + b[i] + "','" + author[i] + "',5)"
         cur.execute(insertBooks)
         con.commit()
+#ret()

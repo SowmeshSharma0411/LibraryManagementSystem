@@ -8,10 +8,16 @@ from tkinter import messagebox
 import datetime
 
 def fines(Bor,Ret):
-    dateB=datetime.datetime(Bor)
-    dateR=datetime.datetime(Ret)
+    l1=Bor.split('-')
+    dateB=datetime.date(int(l1[0]),int(l1[1]),int(l1[2]))
+    dateR=datetime.date.today()
 
-    days=dateR.date()-dateB.date()
+    days=dateR-dateB
+
+    days=str(days)
+    i=days.index(':')
+    days=int(days[:i])
+
 
     fine=0
     Lost=0
@@ -33,6 +39,7 @@ def fines(Bor,Ret):
         messagebox.showwarning("Goodbye!!","Library User Membership Revoked/nYou are Excommunicado")'''
 
     return fine
+
 #The fine will still be present : Maybe if the person doesnt pay it : he will not get the Hall Ticket fr Exams :
 
 

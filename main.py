@@ -1,3 +1,4 @@
+import time
 from tkinter import *
 from tkinter import ttk
 import tkinter.ttk
@@ -9,6 +10,7 @@ from tkinter import messagebox
 #from AddBook import *
 #from DeleteBook import *
 #from ViewBooks import *
+import ReturnBook
 from ReturnBook import *
 from Auth import *
 from fines import *
@@ -22,6 +24,7 @@ mydatabase="db"
 
 con = mysql.connector.connect(host="localhost",user="root",password="root",database="db")
 cur = con.cursor(buffered=True)
+
 
 def myfunc():
    global root,Entry1b,Entry2,Entry2b,Entry3,Entry3b,Entry4
@@ -171,20 +174,34 @@ def myfunc():
    scrlbar.config(command=a.yview)
    txt=Text(DataFrameRight,font=('Times new roman',12,'bold'),width=30,height=17).place(x=1010,y=130)      #ListBox
 
-   # ====================================Buttons===========================================
+   #extractBid = "select SRN, FirstName, LastName, Mobile, Email, Bookid, BookTitle, Author, DateBorrowed, datedue from borrowers where SRN = '" + str(srn_var) + "'"
 
-   l=[
-   srn_var,
-   first_var,
-   last_var,
-   ]
+   def autoRet():
+      l=[]
+      l.append(srn_var.get())
+      l.append(first_var.get())
+      l.append(last_var.get())
+      extractBid = "SELECT Bookid, BookTitle, Author FROM borrowers WHERE SRN = '%s'" %l[0]
+      cur.execute(extractBid)
+      info = []
+      for i in cur:
+         info.append(i)
+      bookid_var.set(info[0][0])
+      booktitle_var.set(info[0][1])
+      author_var.set(info[0][2])
+
+      #time.sleep(5)
+      returnn(l)
+
+
+   # ====================================Buttons===========================================
 
    frameBtn=Frame(root,bg='powder blue',borderwidth=10,relief=RIDGE,padx=20).place(x=0,y=472,width=1275,height=57)
 
    b1=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Borrow',font=('Times new roman',15,'bold'),command=issuebook).place(x=6.8,y=480,width=200,height=40)
-   b2=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Return',font=('Times new roman',15,'bold'),command=partial(returnn,l)).place(x=205,y=480,width=200,height=40)
-   b3=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Display Borrowers',font=('Times new roman',15,'bold')).place(x=404,y=480,width=200,height=40)#Should be Display Borrowers
-   b4=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Reset',font=('Times new roman',15,'bold')).place(x=603,y=480,width=200,height=40)#Should be Reset
+   b2=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Return',font=('Times new roman',15,'bold'),command=autoRet).place(x=205,y=480,width=200,height=40)
+   b3=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Display Borrowers',font=('Times new roman',15,'bold')).place(x=404,y=480,width=200,height=40)
+   b4=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Reset',font=('Times new roman',15,'bold')).place(x=603,y=480,width=200,height=40)
    b5=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Exit',font=('Times new roman',15,'bold'),command=root.destroy).place(x=802,y=480,width=230,height=40)
 
 
@@ -200,7 +217,6 @@ def myfunc():
 #BorrowBook Fnc :
 
 def issuebook():
-   #global Entry1b, Entry2b, Entry3b, Entry2, Entry3, Entry4
 
    input_bookid = str(bookid_var.get())
    title = str(booktitle_var.get())
@@ -304,6 +320,16 @@ def issuebook():
          val)
       # inserts details of the borrowed book with user details into issued books table
       con.commit()
+
+      fetchbooks = "SELECT copies FROM books WHERE title = '" + title + "'"
+      cur.execute(fetchbooks)
+
+      for i in cur:
+         cpy = int(i[0][0])
+      cpy -= 1
+      addSql = "UPDATE books \nSET copies = '%s' \nWHERE title = '%s';" %(str(cpy),str(title))
+      cur.execute(addSql)
+      con.commit()
       # basic gui code for a dialog box----A summary Box must be displayed too :
       print("success, book has been issued")
       headingLabel = Label(root2, text="book issued successfully", bg='black', fg='white', font=('Courier', 15))
@@ -319,7 +345,6 @@ def issuebook():
       cur.execute("SELECT SRN,FirstName,LastName,Bookid,BookTitle,Author,DateBorrowed,datedue FROM borrowers WHERE SRN = "+str(input_userid))
       for i in cur:
          l.append(i)
-      print(l)
       for i in l:
          Label(root2, text="%-30s%-30s%-60s%-60s%-30s%-50s%-50s%-50s" % (val),
                bg='black', fg='white').place(relx=0.08, rely=y)
@@ -334,8 +359,6 @@ def issuebook():
       # exit button to exit program and return to main menu
 
 
-   #Also : 'copies' column in books must be updated once a book is borrowed.
    # Borrow summary proper display of table : Formatting of strs thats all :--Suhas Do the formatting : This is the old window :
+   #Search Optn
 
-
-   #-------------Return Fnc :-----------#
