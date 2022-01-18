@@ -57,7 +57,8 @@ def select(e):
 
     root.mainloop()
     
-def delete():
+def delete(root1):
+    root1.destroy()
     
     global bookInfo1,bookInfo2,bookInfo3,bookInfo4,Canvas1,con,cur,bookTable,root,title
     

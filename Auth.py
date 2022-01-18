@@ -1,26 +1,30 @@
-
-#import mysql.connector
 from tkinter import *
-from PIL import ImageTk,Image
+from tkinter import ttk
 from tkinter import messagebox
-from main import *
+import tkinter.ttk
+import mysql.connector
+from Manage_Window import *
+#from Manage_Users import *
+
+
+# look into auth fns
 
 def auth():
-    #global cur
-    #con = mysql.connector.connect(host="localhost", user="root", password="root", database="db", port=3306)
-    #cur = con.cursor()
+    # global cur
+    # con = mysql.connector.connect(host="localhost", user="root", password="root", database="test76", port=3306)
+    # cur = con.cursor()
 
-    user=info1.get()
-    passs=info2.get()
+    user = info1.get()
+    passs = info2.get()
 
-    Librarian="abc"
-    password="abc"
+    Librarian = "abc"
+    password = "abc"
 
     if (user != Librarian) or (passs != password):
         quit()
     else:
         root.destroy()
-        myfunc()
+        ManageWindow()
 
     Submit.destroy()
     labelFrame.destroy()
@@ -29,16 +33,16 @@ def auth():
     info2.destroy()
     quitBtn.destroy()
 
-
 def gui_auth(root1):
     root1.destroy()
+
     global Submit, labelFrame, lb1, info1, info2, quitBtn, root, Canvas1, status
 
     # declare the window
     root = Tk()
     root.title("Library")
     root.minsize(width=400, height=400)
-    root.geometry("600x500")
+    root.geometry("1600x800")
 
     Canvas1 = Canvas(root)
 
@@ -48,40 +52,32 @@ def gui_auth(root1):
     headingFrame1 = Frame(root, bg="#FFBB00", bd=5)
     headingFrame1.place(relx=0.25, rely=0.1, relwidth=0.5, relheight=0.13)
 
-    headingLabel = Label(headingFrame1, text="Authentication Window", bg='black', fg='white', font=('Courier', 15))
+    headingLabel = Label(headingFrame1, text="My Library", bg='black', fg='white', font=('times new roman', 50,'bold'))
     headingLabel.place(relx=0, rely=0, relwidth=1, relheight=1)
 
     labelFrame = Frame(root, bg='black')
     labelFrame.place(relx=0.1, rely=0.3, relwidth=0.8, relheight=0.5)
 
     # Username
-    lb1 = Label(labelFrame, text="Librarian : ", bg='black', fg='white')
-    lb1.place(relx=0.05, rely=0.2)
+    lb1 = Label(labelFrame, text="Username", bg='black', fg='white',font=('courier',27))
+    lb1.place(relx=0.07, rely=0.2)
 
-    info1 = Entry(labelFrame)
-    info1.place(relx=0.3, rely=0.2, relwidth=0.62)
+    info1 = Entry(labelFrame,font=('times new roman',15,'bold'))
+    info1.place(relx=0.3, rely=0.2, relwidth=0.62,relheight=0.12)
 
     # Password
-    lb2 = Label(labelFrame, text="Password : ", bg='black', fg='white')
-    lb2.place(relx=0.05, rely=0.4)
+    lb2 = Label(labelFrame, text="Password", bg='black', fg='white',font=('courier',27))
+    lb2.place(relx=0.07, rely=0.4)
 
-    info2 = Entry(labelFrame)
-    info2.place(relx=0.3, rely=0.4, relwidth=0.62)
+    info2 = Entry(labelFrame,font=('times new roman',15,'bold'))
+    info2.place(relx=0.3, rely=0.4, relwidth=0.62,relheight=0.12)
 
     # Submit Button
-    Submit = Button(root, text="Submit", bg='#d1ccc0', fg='black', command=auth)
-    Submit.place(relx=0.28, rely=0.9, relwidth=0.18, relheight=0.08)
+    Submit = Button(root, text="Submit", bg='#d1ccc0', fg='black',font=('times new roman',20),command=auth)
+    Submit.place(relx=0.28, rely=0.65, relwidth=0.18, relheight=0.08)
 
     #Quit Button
-    quitBtn = Button(root, text="Quit", bg='#aaa69d', fg='black', command=root.destroy)
-    quitBtn.place(relx=0.53, rely=0.9, relwidth=0.18, relheight=0.08)
+    quitBtn = Button(root, text="Quit", bg='#d1ccc0', fg='black', command=root.destroy,font=('times new roman',20))
+    quitBtn.place(relx=0.53, rely=0.65, relwidth=0.18, relheight=0.08)
 
     root.mainloop()
-
-#gui_auth()
-#auth()
-
-
-
-
-

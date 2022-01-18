@@ -15,9 +15,7 @@ def fines(Bor,Ret):
     days=dateR-dateB
 
     days=str(days)
-    i=days.index(':')
-    days=int(days[:i])
-
+    days=int(days[0])
 
     fine=0
     Lost=0

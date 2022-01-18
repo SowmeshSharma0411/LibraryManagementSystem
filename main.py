@@ -7,13 +7,11 @@ from functools import partial
 from PIL import ImageTk, Image
 import mysql.connector
 from tkinter import messagebox
-#from AddBook import *
-#from DeleteBook import *
-#from ViewBooks import *
-import ReturnBook
 from ReturnBook import *
 from Auth import *
 from fines import *
+from ViewBorrowers import *
+from Manage_Window import *
 
 import datetime
 
@@ -26,7 +24,9 @@ con = mysql.connector.connect(host="localhost",user="root",password="root",datab
 cur = con.cursor(buffered=True)
 
 
-def myfunc():
+def myfunc(root1):
+   root1.destroy()
+
    global root,Entry1b,Entry2,Entry2b,Entry3,Entry3b,Entry4
 
    global member_var, srn_var, first_var, last_var, bookid_var, booktitle_var, author_var, dateborrowed_var, datedue_var
@@ -48,45 +48,45 @@ def myfunc():
 
 
 
-   l1=Label(text='LIBRARY MANAGEMENT SYSTEM',bg='powder blue',fg='red',borderwidth=10,relief=RIDGE,font=('Times New Roman',50,'bold',),padx=2,pady=6).place(x=0,y=0,width=1275,height=100)
+   l1=Label(text='LIBRARY MANAGEMENT SYSTEM',bg='#ff6e40',fg='red',borderwidth=10,relief=RIDGE,font=('Times New Roman',50,'bold',),padx=2,pady=6).place(x=0,y=0,width=1275,height=100)
 
-   frame=Frame(root,bg='powder blue').place(x=0,y=102,width=1275,height=370)
+   frame=Frame(root,bg='#ff6e40').place(x=0,y=102,width=1275,height=570)
 
    # &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& FRONT END &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
    # =========================================================================DataFrameLeft====================================================
 
-   DataFrameLeft=LabelFrame(frame,bg='powder blue',text='Library Member Information',font=('algerian',15,'bold'),borderwidth='10',relief=RIDGE,padx=0,pady=0).place(x=0,y=102,width=750,height=370)
+   DataFrameLeft=LabelFrame(frame,bg='#ff6e40',text='Library Member Information',fg='midnightblue',font=('algerian',15,'bold'),borderwidth='10',relief=RIDGE,padx=0,pady=0).place(x=0,y=102,width=750,height=445)
 
-   lbl1=Label(frame,text='Member Type',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl1.place(x=10,y=130)
-   comMember=tkinter.ttk.Combobox(DataFrameLeft,font=('times new roman',13,'bold'),width=18,state='readonly',textvariable=member_var)  #adding drop down box
+   lbl1=Label(frame,text='Member Type',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
+   lbl1.place(x=0.03,y=130)
+   comMember=tkinter.ttk.Combobox(DataFrameLeft,font=('times new roman',18,'bold'),width=13,state='readonly',textvariable=member_var)  #adding drop down box
    comMember['value']=('Student','Lecturer')   #values in the drop down box
-   comMember.place(x=150,y=135)
+   comMember.place(relx=0.18, rely=0.19,relwidth=0.35)
 
-   lbl1b=Label(DataFrameLeft,text='Book ID',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl1b.place(x=340,y=135)
-   Entry1b=Entry(bg='white',width=30,font=('times new roman',13,'bold'),textvariable=bookid_var).place(x=460,y=135,height=25)
+   lbl1b=Label(DataFrameLeft,text='Book ID',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
+   lbl1b.place(relx=0.02,rely=0.45)
+   Entry1b=Entry(bg='white',width=30,font=('times new roman',18,'bold'),textvariable=bookid_var).place(relx=0.13,rely=0.45,height=30,relwidth=0.16)
 
-   lbl2=Label(DataFrameLeft,text='SRN No',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl2.place(x=10,y=165)
-   Entry2=Entry(bg='white',width=20,font=('times new roman',13,'bold'),textvariable=srn_var).place(x=150,y=165,height=30)
+   lbl2=Label(DataFrameLeft,text='SRN No',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
+   lbl2.place(relx=0.03,rely=0.25)
+   Entry2=Entry(bg='white',width=20,font=('times new roman',18,'bold'),textvariable=srn_var).place(relx=0.18,rely=0.25,height=30.5,relwidth=0.35)
 
-   lbl2b=Label(DataFrameLeft,text='Book Title',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl2b.place(x=340,y=165)
-   Entry2b=Entry(bg='white',width=30,font=('times new roman',13,'bold'),textvariable=booktitle_var).place(x=460,y=165,height=30)
+   lbl2b=Label(DataFrameLeft,text='Book Title',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
+   lbl2b.place(relx=0.02,rely=0.53)
+   Entry2b=Entry(bg='white',width=30,font=('times new roman',18,'bold'),textvariable=booktitle_var).place(relx=0.13,rely=0.53,height=30,relwidth=0.16)
 
-   lbl3=Label(DataFrameLeft,text='First Name',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl3.place(x=10,y=200)
-   Entry3=Entry(bg='white',width=20,font=('times new roman',13,'bold'),textvariable=first_var).place(x=150,y=200,height=30)
+   lbl3=Label(DataFrameLeft,text='First Name',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
+   lbl3.place(relx=0.03,rely=0.31)
+   Entry3=Entry(bg='white',width=20,font=('times new roman',18,'bold'),textvariable=first_var).place(relx=0.18,rely=0.31,height=30.5,relwidth=0.35)
 
-   lbl3b=Label(DataFrameLeft,text='Author',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl3b.place(x=340,y=200)
-   Entry3b=Entry(bg='white',width=30,font=('times new roman',13,'bold'),textvariable=author_var).place(x=460,y=200,height=30)
+   lbl3b=Label(DataFrameLeft,text='Author',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
+   lbl3b.place(relx=0.02,rely=0.62)
+   Entry3b=Entry(bg='white',width=30,font=('times new roman',18,'bold'),textvariable=author_var).place(relx=0.13,rely=0.62,height=30,relwidth=0.16)
 
-   lbl4=Label(DataFrameLeft,text='Last Name',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl4.place(x=10,y=235)
-   Entry4=Entry(bg='white',width=20,font=('times new roman',13,'bold'),textvariable=last_var).place(x=150,y=235,height=30)
+   lbl4=Label(DataFrameLeft,text='Last Name',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
+   lbl4.place(relx=0.03,rely=0.37)
+   Entry4=Entry(bg='white',width=20,font=('times new roman',18,'bold'),textvariable=last_var).place(relx=0.18,rely=0.37,height=30.5,relwidth=0.35)
 
    '''lbl4b=Label(DataFrameLeft,text='Borrow Date',bg='powder blue',font=('Times new roman',15,'bold'))
    lbl4b.place(x=340,y=235)
@@ -126,7 +126,7 @@ def myfunc():
 
    # ===============================================================DataFrameRight=========================================================
 
-   DataFrameRight=LabelFrame(frame,bg='powder blue',text='Book Details',font=('algerian',15,'bold'),borderwidth='10',relief=RIDGE,padx=0,pady=0).place(x=750,y=102,width=525,height=370)
+   DataFrameRight=LabelFrame(frame,bg='#ff6e40',fg='midnightblue',text='Book Details',font=('algerian',15,'bold'),borderwidth='10',relief=RIDGE,padx=0,pady=0).place(x=750,y=102,width=525,height=445)
 
    # Taking Books from the database into a list :
    b = []
@@ -157,22 +157,27 @@ def myfunc():
       booktitle_var.set(info[0][1])
       author_var.set(info[0][2])
 
-   a=Listbox(DataFrameRight,font=('times new roman',12,'bold'),width=29,height=16)
+   a=Listbox(DataFrameRight,font=('times new roman',12,'bold'),width=59,height=17)
    a.bind("<<ListboxSelect>>",select)
-   a.place(x=765,y=130)
+   a.place(x=765,y=180)
+
+   lbl8b = Label(DataFrameRight, text='Search', bg='#ff6e40', fg='black', font=('Times new roman', 18, 'bold'))
+   lbl8b.place(x=765, y=130)
+   Entry8b = Entry(bg='white', width=30, font=('times new roman', 18, 'bold'))
+   Entry8b.place(x=850, y=130, height=35, relwidth=0.3)
 
    for item in b:
       a.insert(END,item)
 
 
    scrlbar=Scrollbar(DataFrameRight)
-   scrlbar.place(x=985,y=130,height=322)
+   scrlbar.place(x=1245,y=180,height=345)
 
    a.config(yscrollcommand=scrlbar.set)
    scrlbar.config(command=a.yview())
 
    scrlbar.config(command=a.yview)
-   txt=Text(DataFrameRight,font=('Times new roman',12,'bold'),width=30,height=17).place(x=1010,y=130)      #ListBox
+   #txt=Text(DataFrameRight,font=('Times new roman',12,'bold'),width=30,height=17).place(x=1010,y=130)      #ListBox
 
    #extractBid = "select SRN, FirstName, LastName, Mobile, Email, Bookid, BookTitle, Author, DateBorrowed, datedue from borrowers where SRN = '" + str(srn_var) + "'"
 
@@ -193,28 +198,36 @@ def myfunc():
       #time.sleep(5)
       returnn(l)
 
+   def Exit():
+      root.destroy()
+      ManageUsers()
+
+   def Reset():
+      Entry1b.delete(0, 'end')
+      Entry2.delete(0, 'end')
+      Entry3.delete(0, 'end')
+      Entry2b.delete(0, 'end')
+      Entry3b.delete(0, 'end')
+      #Entry6b.delete(0, 'end')
+      Entry4.delete(0, 'end')
+
 
    # ====================================Buttons===========================================
 
    frameBtn=Frame(root,bg='powder blue',borderwidth=10,relief=RIDGE,padx=20).place(x=0,y=472,width=1275,height=57)
 
-   b1=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Borrow',font=('Times new roman',15,'bold'),command=issuebook).place(x=6.8,y=480,width=200,height=40)
-   b2=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Return',font=('Times new roman',15,'bold'),command=autoRet).place(x=205,y=480,width=200,height=40)
-   b3=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Display Borrowers',font=('Times new roman',15,'bold')).place(x=404,y=480,width=200,height=40)
-   b4=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Reset',font=('Times new roman',15,'bold')).place(x=603,y=480,width=200,height=40)
-   b5=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Exit',font=('Times new roman',15,'bold'),command=root.destroy).place(x=802,y=480,width=230,height=40)
+   b1=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Issue',font=('Times new roman',30,'bold'),command=issuebook).place(x=6.8,y=556.8,width=330,height=80)
+   b2=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Return',font=('Times new roman',30,'bold'),command=autoRet).place(x=334,y=556.8,width=330,height=80)
+   b3=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Display Borrowers',font=('Times new roman',30,'bold'),command=View).place(x=663,y=556.8,width=300,height=80)
+   b4=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Reset',font=('Times new roman',30,'bold')).place(x=963,y=556.8,width=300,height=80)
+   #b5=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Exit',font=('Times new roman',30,'bold'),command=root.destroy).place(x=802,y=480,width=230,height=40)---Exit Removed For now :
 
 
    # ===================================================Info Bar==================================
 
-   Info=Frame(root,bg='powder blue',borderwidth=10,relief=RIDGE,padx=20).place(x=0,y=530,width=1275,height=120)
-
-
-   #Fine=Box Should be removed : Instead a small Msg Box.
+   #Info=Frame(root,bg='powder blue',borderwidth=10,relief=RIDGE,padx=20).place(x=0,y=530,width=1275,height=120)
 
    #For autoEmails : A window List of all PPl who havent submitted the books on time;
-
-#BorrowBook Fnc :
 
 def issuebook():
 
@@ -355,10 +368,11 @@ def issuebook():
       quitBtn.place(relx=0.53, rely=0.6, relwidth=0.18, relheight=0.08)
 
       root2.mainloop()
-      return  # exits the program once the quit button is pressed and returns to the main menu
-      # exit button to exit program and return to main menu
+      return
 
 
    # Borrow summary proper display of table : Formatting of strs thats all :--Suhas Do the formatting : This is the old window :
    #Search Optn
+   #Also : TextBoxes look little off : correct em :
+
 

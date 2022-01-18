@@ -11,12 +11,10 @@ con = mysql.connector.connect(host="localhost", user="root", password=mypass, da
 cur = con.cursor()
 
 # Enter Table Names here
-bookTable = "books"
+bookTable = "borrowers"
 
 
-def View(root1):
-    root1.destroy()
-
+def View():
     root = Tk()
     root.title("Library")
     root.minsize(width=400, height=400)
@@ -36,26 +34,24 @@ def View(root1):
     labelFrame.place(relx=0.1, rely=0.3, relwidth=0.8, relheight=0.5)
     y = 0.25
 
-    Label(labelFrame, text="%-30s%-60s%-40s%-10s" % ('BID', 'Title', 'Author', 'Copies'), bg='black',
+    Label(labelFrame, text="%-30s%-60s%-40s%-50s%-50s%-50s%-50s%-50s%-50s%-50s%-50s%-50s%-10s" % ('SRN', 'FirstName', 'LastName', 'Mobile','Email','Bookid','BookTitle','Author','DateBorrowed','datedue','DateReturned','DaysBorrowed','Fine'), bg='black',
           fg='white').place(relx=0.07, rely=0.1)
     Label(labelFrame, text="----------------------------------------------------------------------------", bg='black',
           fg='white').place(relx=0.05, rely=0.2)
     getBooks = "select * from " + bookTable
-    try:
-        cur.execute(getBooks)
-        #con.commit()
-        c = 1
-        for i in cur:
-            Label(labelFrame, text="%-30s%-60s%-40s%-10s" % (c,i[1], i[2], i[3]), bg='black',
-                  fg='white').place(relx=0.07, rely=y)
-            c += 1
-            y += 0.1
-    except:
-        messagebox.showinfo("Failed to fetch files from database")
+    #try:
+    cur.execute(getBooks)
+    #con.commit()
+    for i in cur:
+        Label(labelFrame, text="%-30s%-60s%-40s%-50s%-50s%-50s%-50s%-50s%-50s%-50s%-50s%-50s%-10s" % (i[0],i[1], i[2], i[3],i[4],i[5],i[6],i[7],i[8],i[9],i[10],i[11],i[12]), bg='black',
+              fg='white').place(relx=0.07, rely=y)
+        y += 0.1
+    '''except:
+        messagebox.showinfo("Failed to fetch files from database")'''
 
     quitBtn = Button(root, text="Quit", bg='#f7f1e3', fg='black', command=root.destroy)
     quitBtn.place(relx=0.4, rely=0.9, relwidth=0.18, relheight=0.08)
 
     root.mainloop()
 
-    #Alignment of things :   Add Pagination
+    #Alignment of things :   Add Pagination/Scroll Bar
