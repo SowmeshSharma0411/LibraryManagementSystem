@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 import tkinter.ttk
-#from Manage_Users import *
+from Manage_Users import *
 from tkinter import messagebox
 from main import myfunc
 from AddBook import *
@@ -12,7 +12,7 @@ from functools import partial
 global root
 
 
-def ManageUsers(root1):
+'''def ManageUsers(root1):
     root1.destroy()
 
     root = Tk()
@@ -44,12 +44,12 @@ def ManageUsers(root1):
     Add.place(relx=0, rely=1 / 4, relwidth=1, relheight=1 / 4)
 
     # Update Details  # need to be done by Sowmesh and Suvan
-    '''Update = Button(labelFrame2, text='Update Details', bg='black', fg='white', font=('courier', 15))
-    Update.place(relx=0, rely=2 / 4, relwidth=1, relheight=1 / 4)'''
+    Update = Button(labelFrame2, text='Update Details', bg='black', fg='white', font=('courier', 15))
+    Update.place(relx=0, rely=2 / 4, relwidth=1, relheight=1 / 4)
 
     # Delete Users # by Sowmesh and Suvan
     Delete = Button(labelFrame2, text='Delete User', bg='black', fg='white', font=('courier', 15))
-    Delete.place(relx=0, rely=3 / 4, relwidth=1, relheight=1 / 4)
+    Delete.place(relx=0, rely=3 / 4, relwidth=1, relheight=1 / 4)'''
 
 #Do we Really need to have : Update User Details and Delete User ? :
 
@@ -155,7 +155,7 @@ def ManageBooks(root1):
 #     Return.place(relx=0, rely=1 / 2, relwidth=1, relheight=1 / 2)
 
 
-def AddUser():
+'''def AddUser():
     root = Tk()
     root.title("Add User")
     root.minsize(width=400, height=400)
@@ -216,13 +216,13 @@ def AddUser():
 
     #Submit Button
     Submit5 = Button(labelFrame5, text="Submit", bg='#d1ccc0', fg='black',font=('times new roman',20),command=Submit_5)
-    Submit5.place(relx=0.3, rely=0.7, relwidth=0.18, relheight=0.08)
+    Submit5.place(relx=0.3, rely=0.7, relwidth=0.18, relheight=0.08)'''
 
     #root.mainloop() #after adding all option remove this call
 
 #Why AddBooks ??
 
-def AddBook():
+'''def AddBook():
     root = Tk()
     root.title("Add Book")
     root.minsize(width=400, height=400)
@@ -274,7 +274,7 @@ def AddBook():
 
     #Submit Button
     Submit6 = Button(labelFrame6, text="Submit", bg='#d1ccc0', fg='black',font=('times new roman',20),command=Submit_6)
-    Submit6.place(relx=0.3, rely=0.7, relwidth=0.18, relheight=0.08)
+    Submit6.place(relx=0.3, rely=0.7, relwidth=0.18, relheight=0.08)'''
 
 
 
