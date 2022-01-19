@@ -112,8 +112,6 @@ def delete(root1):
     
     root.mainloop()
 
-    #Hafta Add Drop Down list : in delete :with a scroll bar.
-
 def deleteBook(title):
 
     deleteSql = "delete from " + bookTable + " where title = '" + title + "'"

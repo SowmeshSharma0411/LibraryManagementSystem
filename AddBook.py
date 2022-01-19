@@ -95,6 +95,5 @@ def addBook(root1):
 
     root.mainloop()
 
-    #Instead of status : Copies : This will come when the borrow fnc comes into pic : DONE
+
     #No duplicate book can be added :
-    #BID=UserDefined Design

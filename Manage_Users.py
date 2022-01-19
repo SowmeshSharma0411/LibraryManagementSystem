@@ -395,6 +395,10 @@ def AddUserGUI():
     Submit5.place(relx=0.4, rely=0.8, relwidth=0.18, relheight=0.13)
     #print("leaving")
 
+#Horizontal ScrollBar : ViewUsers :
+#Search optn available for all "fields"
+
+
 
 
 

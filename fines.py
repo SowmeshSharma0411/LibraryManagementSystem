@@ -38,6 +38,6 @@ def fines(Bor,Ret):
 
     return fine
 
-#The fine will still be present : Maybe if the person doesnt pay it : he will not get the Hall Ticket fr Exams :
+#The fine will still be present : Maybe if the person doesnt pay it : he will not get the Hall Ticket fr Exams : LATER IF TIME :
 
 

@@ -33,3 +33,6 @@ for x in cur:
 cur.execute("ALTER TABLE BookTable drop flag2315")
 print('--------\"end of list\"--------')
 x=input()
+
+
+#Have to modify this to include this in many places : polymorphism

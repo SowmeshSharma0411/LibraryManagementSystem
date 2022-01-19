@@ -89,7 +89,6 @@ def returnBook():
     labelFrame = Frame(root,bg='black')
     labelFrame.place(relx=0.1,rely=0.3,relwidth=0.8,relheight=0.5)
 
-    #For Return Summary :  Add scrollbar :
 
     Label(labelFrame, text="%-30s%-60s%-40s%-50s%-50s%-50s%-50s" % ('SRN', 'FirstName', 'LastName', 'BID', 'Title', 'Author','Fine'), bg='black',
           fg='white').place(relx=0.07, rely=0.1)
@@ -103,5 +102,5 @@ def returnBook():
     
     root.mainloop()
 
-
-#Im assuming issuebook takes in borrowed and calculates due date : and updates it in the borrowers table.
+#For Return Summary :  Add scrollbar :
+#For Custom Error msg if user cant borrow : cuz he is not registered in the users database :

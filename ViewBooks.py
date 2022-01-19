@@ -58,4 +58,4 @@ def View(root1):
 
     root.mainloop()
 
-    #Alignment of things :   Add Pagination
+    #Alignment of things :  + scrollbar + search optn : like suvan's view users

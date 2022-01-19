@@ -227,8 +227,6 @@ def myfunc(root1):
 
    #Info=Frame(root,bg='powder blue',borderwidth=10,relief=RIDGE,padx=20).place(x=0,y=530,width=1275,height=120)
 
-   #For autoEmails : A window List of all PPl who havent submitted the books on time;
-
 def issuebook():
 
    input_bookid = str(bookid_var.get())
@@ -323,13 +321,20 @@ def issuebook():
          # gui code for a dailog box specifying the above message
          # exit button to exit program and return to main menu'''
 
+      fetchuser="SELECT * FROM users WHERE SRN = "+str(input_userid)
+      cur.execute(fetchuser)
+
+      l=[]
+      for i in cur:
+         l.append(i)
+
       borrow_date = datetime.date.today()
       duedate = borrow_date + datetime.timedelta(days=14)
       duedate = str(duedate)
       borrow_date = str(borrow_date)
-      val = (input_userid,name,last_name,input_bookid,title,author,borrow_date,duedate)
+      val = (input_userid,name,last_name,l[0][-2],l[0][-1],input_bookid,title,author,borrow_date,duedate)
       cur.execute(
-         "INSERT INTO borrowers (SRN,FirstName,LastName,Bookid,BookTitle,Author,DateBorrowed,datedue) values(%s,%s,%s,%s,%s,%s,%s,%s)",
+         "INSERT INTO borrowers (SRN,FirstName,LastName,Mobile,Email,Bookid,BookTitle,Author,DateBorrowed,datedue) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
          val)
       # inserts details of the borrowed book with user details into issued books table
       con.commit()
@@ -344,22 +349,27 @@ def issuebook():
       cur.execute(addSql)
       con.commit()
       # basic gui code for a dialog box----A summary Box must be displayed too :
-      print("success, book has been issued")
+      #print("success, book has been issued")
       headingLabel = Label(root2, text="book issued successfully", bg='black', fg='white', font=('Courier', 15))
       headingLabel.place(relx=0, rely=0, relwidth=1, relheight=1)
-      Label(root2, text="%-30s%-30s%-75s%-60s%-30s%-50s%-50s%-50s" % (
-         'SRN','FirstName','LastName','Bookid','BookTitle','Author','DateBorrowed','datedue'), bg='black', fg='white').place(relx=0.07,
+      Label(root2, text="%-30s%-30s%-75s%-60s%-30s%-50s%-50s%-50s%-50s%-50s" % (
+         'SRN','FirstName','LastName','Mobile','Email','Bookid','BookTitle','Author','DateBorrowed','datedue'), bg='black', fg='white').place(relx=0.07,
                                                                                                           rely=0.1)
       Label(root2, text="----------------------------------------------------------------------------", bg='black',
             fg='white').place(relx=0.05, rely=0.2)
 
       c = 1
       y = 0.3
-      cur.execute("SELECT SRN,FirstName,LastName,Bookid,BookTitle,Author,DateBorrowed,datedue FROM borrowers WHERE SRN = "+str(input_userid))
+      l=[]
+      cur.execute("SELECT SRN,FirstName,LastName,Mobile,Email,Bookid,BookTitle,Author,DateBorrowed,datedue FROM borrowers WHERE SRN = "+str(input_userid))
       for i in cur:
          l.append(i)
+      l1=[]
+      #print(l)
       for i in l:
-         Label(root2, text="%-30s%-30s%-60s%-60s%-30s%-50s%-50s%-50s" % (val),
+         l1=[]
+         l1=(i[0],i[1],i[2],i[3],i[4],i[5],i[6],i[7],i[8],i[9])
+         Label(root2, text="%-30s%-30s%-60s%-60s%-30s%-50s%-50s%-50s%-50s%-50s" %(l1),
                bg='black', fg='white').place(relx=0.08, rely=y)
          #c += 1
          y += 0.1
@@ -370,9 +380,16 @@ def issuebook():
       root2.mainloop()
       return
 
-
+   #"Fetch" button to autofill first and last name after SRN :
    # Borrow summary proper display of table : Formatting of strs thats all :--Suhas Do the formatting : This is the old window :
    #Search Optn
    #Also : TextBoxes look little off : correct em :
+   #For autoEmails : A window List of all PPl who havent submitted the books on time;
 
+
+   #Stitch the fncs proeprly : quit Btns :(HOME)
+   #Update Search to search by FirstName : Last name, Email ID
+   #Returned Successfully in return screen : + lil error handling : like no user while borrowing :
+   #Add a dynamic alert/Notif in dashboard(eg : "This book" due date is on "this date")
+   #GUI : of everything : align everything first : + Borrow window : make fonts the same.
 

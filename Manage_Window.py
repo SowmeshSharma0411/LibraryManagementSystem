@@ -276,6 +276,7 @@ def ManageBooks(root1):
     Submit6 = Button(labelFrame6, text="Submit", bg='#d1ccc0', fg='black',font=('times new roman',20),command=Submit_6)
     Submit6.place(relx=0.3, rely=0.7, relwidth=0.18, relheight=0.08)'''
 
+#Quit Btns to come back to home screen.
 
 
 
