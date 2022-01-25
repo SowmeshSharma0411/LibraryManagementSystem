@@ -23,8 +23,7 @@ def auth():
     if (user != Librarian) or (passs != password):
         quit()
     else:
-        root.destroy()
-        ManageWindow()
+        ManageWindow(root)
 
     Submit.destroy()
     labelFrame.destroy()

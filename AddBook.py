@@ -2,27 +2,37 @@ from tkinter import *
 from PIL import ImageTk, Image
 from tkinter import messagebox
 import mysql.connector
+from functools import partial
+import Manage_Window
 
 
 def bookRegister():
     # bid = 1,2,3....
     title = bookInfo2.get()
     author = bookInfo3.get()
-    #status = bookInfo4.get()
-    insertBooks = "insert into " + bookTable +" (title,author,copies) values('" + title + "','" + author + "',5)"
-    try:
-        cur.execute(insertBooks)
-        con.commit()
-        messagebox.showinfo('Success', "Book added successfully")
-    except:
-        messagebox.showinfo("Error", "Can't add data into Database")
+    #To check if a book already exists in the database :
+    check="SELECT bid, title, author FROM books WHERE title = '%s' and author = '%s' " %(title,author)
+    cur.execute(check)
+    l=[]
+    for i in cur:
+        l.append(i)
+    if(len(l)!=0):
+        messagebox.showerror("Error!!", "Book Already Exists")
+        return
+    else:
 
-    # print(bid)
-    print(title)
-    print(author)
-    #print(status)
+        insertBooks = "insert into " + bookTable +" (title,author,copies) values('" + title + "','" + author + "',5)"
+        try:
+            cur.execute(insertBooks)
+            con.commit()
+            messagebox.showinfo('Success', "Book added successfully")
+        except:
+            messagebox.showinfo("Error", "Can't add data into Database")
 
-    root.destroy()
+        # print(bid)
+        #print(title)
+        #print(author)
+        #print(status)
 
 
 def addBook(root1):
@@ -40,7 +50,7 @@ def addBook(root1):
     mydatabase = "db"
 
     con = mysql.connector.connect(host="localhost", user="root", password=mypass, database=mydatabase)
-    cur = con.cursor()
+    cur = con.cursor(buffered=True)
 
     # Enter Table Names here
     bookTable = "books"
@@ -90,10 +100,11 @@ def addBook(root1):
     SubmitBtn = Button(root, text="Submit", bg='#d1ccc0', fg='black',font=('times new roman',20), command=bookRegister)
     SubmitBtn.place(relx=0.3, rely=0.7, relwidth=0.18, relheight=0.08)
 
-    quitBtn = Button(root, text="Quit", bg='#f7f1e3', fg='black', command=root.destroy)
+    quitBtn = Button(root, text="Quit", bg='#f7f1e3', fg='black', command=partial(Manage_Window.ManageBooks,root))
     quitBtn.place(relx=0.5, rely=0.7, relwidth=0.18, relheight=0.08)
 
     root.mainloop()
 
 
     #No duplicate book can be added :
+    #ImportError: cannot import name 'ManageBooks' from partially initialized module 'Manage_Window' (most likely due to a circular import) (C:\Users\sowme\Pychar

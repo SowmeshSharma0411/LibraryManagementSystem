@@ -5,6 +5,7 @@ from tkinter import messagebox
 import mysql.connector
 from functools import partial
 from tkinter import ttk
+import Manage_Window
 
 # Add your own database name and password here to reflect in the code
 mypass = "root"
@@ -52,7 +53,7 @@ def select(e):
     DeleteBtn = Button(root, text="Delete", bg='#d1ccc0', fg='black', command=partial(deleteBook,title))
     DeleteBtn.place(relx=0.28, rely=0.9, relwidth=0.18, relheight=0.08)
 
-    quitBtn = Button(root, text="Quit", bg='#f7f1e3', fg='black', command=root.destroy)
+    quitBtn = Button(root, text="Quit", bg='#f7f1e3', fg='black', command=partial(Manage_Window.ManageBooks,root))
     quitBtn.place(relx=0.53, rely=0.9, relwidth=0.18, relheight=0.08)
 
     root.mainloop()
@@ -123,6 +124,6 @@ def deleteBook(title):
         messagebox.showinfo("Please enter the correct title of the book")
 
     bookInfo1.delete(0, END)
-    root.destroy()
+    #root.destroy()
 
 #Suhas Align the Drop down box n all : make the screen look neater :

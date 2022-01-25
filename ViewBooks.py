@@ -2,6 +2,8 @@ from tkinter import *
 from PIL import ImageTk, Image
 from tkinter import messagebox
 import mysql.connector
+import Manage_Window
+from functools import partial
 
 # Add your own database name and password here to reflect in the code
 mypass = "root"
@@ -53,7 +55,7 @@ def View(root1):
     except:
         messagebox.showinfo("Failed to fetch files from database")
 
-    quitBtn = Button(root, text="Quit", bg='#f7f1e3', fg='black', command=root.destroy)
+    quitBtn = Button(root, text="Quit", bg='#f7f1e3', fg='black', command=partial(Manage_Window.ManageBooks,root))
     quitBtn.place(relx=0.4, rely=0.9, relwidth=0.18, relheight=0.08)
 
     root.mainloop()

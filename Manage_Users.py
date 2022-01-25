@@ -3,6 +3,8 @@ from tkinter import ttk
 from tkinter import messagebox
 import tkinter.ttk
 import mysql.connector
+from functools import partial
+import Manage_Window
 search=None
 
 
@@ -31,27 +33,28 @@ def ManageUsers(root1):
     labelFrame2.place(relx=0.1, rely=0.3, relwidth=0.8, relheight=0.5)
 
     # Display Current Users  # Need to display from database  # must be done by Sowmesh and Suvan
-    Display = Button(labelFrame2, text="Display Current Users", bg='black', fg='white', font=('courier', 15),command=viewusers)
+    Display = Button(labelFrame2, text="Display Current Users", bg='black', fg='white', font=('courier', 15),command=partial(viewusers,root))
     Display.place(relx=0, rely=0, relwidth=1, relheight=1 / 4)
 
     # Add Users
-    Add = Button(labelFrame2, text="Add New User", bg='black', fg='white', font=('courier', 15), command=AddUserGUI)
+    Add = Button(labelFrame2, text="Add New User", bg='black', fg='white', font=('courier', 15), command=partial(AddUserGUI,root))
     Add.place(relx=0, rely=1 / 4, relwidth=1, relheight=1 / 4)
 
-    # Update Details  # need to be done by Sowmesh and Suvan
-    '''Update = Button(labelFrame2, text='Update Details', bg='black', fg='white', font=('courier', 15))
-    Update.place(relx=0, rely=2 / 4, relwidth=1, relheight=1 / 4)''' #No update
+    # Delete Users
+    Delete = Button(labelFrame2, text='Delete User', bg='black', fg='white', font=('courier', 15))
+    Delete.place(relx=0, rely=2 / 4, relwidth=1, relheight=1 / 4)
+
+    quit = Button(labelFrame2, text='Quit', bg='black', fg='white', font=('courier', 15), command=partial(Manage_Window.ManageWindow,root))
+    quit.place(relx=0, rely=3 / 4, relwidth=1, relheight=1 / 4)
 
     # Delete Users # by Sowmesh and Suvan
-    Delete = Button(labelFrame2, text='Delete User', bg='black', fg='white', font=('courier', 15))
-    Delete.place(relx=0, rely=3 / 4, relwidth=1, relheight=1 / 4)
-    
-    quit = Button(labelFrame2, text='Delete User', bg='black', fg='white', font=('courier', 15),command=root.destroy)
-    quit.place(relx=0, rely=4 / 4, relwidth=1, relheight=1 / 4)
+    '''Delete = Button(labelFrame2, text='Delete User', bg='black', fg='white', font=('courier', 15))
+    Delete.place(relx=0, rely=3 / 4, relwidth=1, relheight=1 / 4)'''
 
-    #root.mainloop()
+    root.mainloop()
 
-def viewusers():
+def viewusers(root1):
+    root1.destroy()
     
     global search
     def searchfunc():
@@ -172,8 +175,8 @@ def viewusers():
     searchentry.place(relx=0.15, rely=0.73, relwidth=0.7, relheight=0.03)
     searchbutton= Button(ws, text="search", bg='#d1ccc0', fg='black',font=('times new roman',20),command=searchfunc)
     searchbutton.place(relx=0.3, rely=0.84, relwidth=0.18, relheight=0.05)
-    quitbutton= Button(ws, text="Quit", bg='#d1ccc0', fg='black',font=('times new roman',20),command=ws.destroy)
-    quitbutton.place(relx=0.3, rely=0.92, relwidth=0.18, relheight=0.05)
+    quitbutton= Button(ws, text="Quit", bg='#d1ccc0', fg='black',font=('times new roman',20),command=partial(ManageUsers,ws))
+    quitbutton.place(relx=0.5, rely=0.84, relwidth=0.18, relheight=0.05)
     
 
     
@@ -216,15 +219,13 @@ def adduser():
      except:
         #print("invalid")
         messagebox.showinfo('Error', 'Values entered invalid, Please enter them again:')
-        root.destroy()
         #print("pass")
-        AddUserGUI()
+        AddUserGUI(root)
     else:
         #print("invalid")
         messagebox.showinfo('Error', 'Values entered invalid, Please enter them again:')
-        root.destroy()
         #print("pass")
-        AddUserGUI()
+        AddUserGUI(root)
 
     
     
@@ -232,7 +233,8 @@ def adduser():
     
 
 
-def AddUserGUI():
+def AddUserGUI(root1):
+    root1.destory()
     #print("enter")
     global info5,info5b,comMemberc,comMemberd,email,mobile_no,SRN,root
     
@@ -393,11 +395,16 @@ def AddUserGUI():
 
     Submit5 = Button(labelFrame5, text="Submit", bg='#d1ccc0', fg='black',font=('times new roman',20),command=adduser)
     Submit5.place(relx=0.4, rely=0.8, relwidth=0.18, relheight=0.13)
+
+    Quit = Button(labelFrame5, text="Quit", bg='#d1ccc0', fg='black', font=('times new roman', 20),
+                     command=partial(ManageUsers,root))
+    Quit.place(relx=0.7, rely=0.8, relwidth=0.18, relheight=0.13)
     #print("leaving")
 
 #Horizontal ScrollBar : ViewUsers :
 #Search optn available for all "fields"
 
+#Some Problem with AddBook root1.destory()
 
 
 

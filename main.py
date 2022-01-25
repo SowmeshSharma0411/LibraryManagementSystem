@@ -11,7 +11,9 @@ from ReturnBook import *
 from Auth import *
 from fines import *
 from ViewBorrowers import *
+import Manage_Window
 from Manage_Window import *
+from searchfunc import *
 
 import datetime
 
@@ -29,8 +31,7 @@ def myfunc(root1):
 
    global root,Entry1b,Entry2,Entry2b,Entry3,Entry3b,Entry4
 
-   global member_var, srn_var, first_var, last_var, bookid_var, booktitle_var, author_var, dateborrowed_var, datedue_var
-
+   global member_var, srn_var, first_var, last_var, bookid_var, booktitle_var, author_var, dateborrowed_var, datedue_var, search_var
    root=Tk()
    root.title('Library Management System')
    root.geometry('1600x800')
@@ -44,6 +45,8 @@ def myfunc(root1):
    author_var = StringVar()
    dateborrowed_var = StringVar()
    datedue_var = StringVar()
+
+   search_var=StringVar()
 
 
 
@@ -71,6 +74,21 @@ def myfunc(root1):
    lbl2=Label(DataFrameLeft,text='SRN No',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
    lbl2.place(relx=0.03,rely=0.25)
    Entry2=Entry(bg='white',width=20,font=('times new roman',18,'bold'),textvariable=srn_var).place(relx=0.18,rely=0.25,height=30.5,relwidth=0.35)
+
+   def autoUser():
+      userid=srn_var.get()
+      fetchuser = "SELECT * FROM users WHERE SRN = " + str(userid)
+      cur.execute(fetchuser)
+      info = []
+      for i in cur:
+         info.append(i)
+      first_var.set(info[0][2])
+      last_var.set(info[0][3])
+
+
+
+   b1 = Button(root, bg='chocolate', fg='black', borderwidth=5, relief=RAISED, text='Fetch',
+               font=('Times new roman', 10, 'bold'), command=autoUser).place(relx=0.53,rely=0.25,height=30.5,relwidth=0.07)
 
    lbl2b=Label(DataFrameLeft,text='Book Title',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
    lbl2b.place(relx=0.02,rely=0.53)
@@ -163,8 +181,16 @@ def myfunc(root1):
 
    lbl8b = Label(DataFrameRight, text='Search', bg='#ff6e40', fg='black', font=('Times new roman', 18, 'bold'))
    lbl8b.place(x=765, y=130)
-   Entry8b = Entry(bg='white', width=30, font=('times new roman', 18, 'bold'))
+   Entry8b = Entry(bg='white', width=30, font=('times new roman', 18, 'bold'),textvariable=search_var)
    Entry8b.place(x=850, y=130, height=35, relwidth=0.3)
+
+   #Hafta add a Go Button to get the thing working.
+   b1 = Button(root, bg='chocolate', fg='black', borderwidth=5, relief=RAISED, text='Go',
+               font=('Times new roman',10, 'bold'), command=partial(search,"title","books")).place(x=1200, y=130, height=35,relwidth=0.07)
+   '''cur.execute("SELECT * from books WHERE flag=1")
+   for i in cur:
+      print(i)'''
+   #search_var = always str
 
    for item in b:
       a.insert(END,item)
@@ -203,24 +229,21 @@ def myfunc(root1):
       ManageUsers()
 
    def Reset():
-      Entry1b.delete(0, 'end')
-      Entry2.delete(0, 'end')
-      Entry3.delete(0, 'end')
-      Entry2b.delete(0, 'end')
-      Entry3b.delete(0, 'end')
-      #Entry6b.delete(0, 'end')
-      Entry4.delete(0, 'end')
+      member_var.set(""),
+      srn_var.set(""),
+      first_var.set(""),
+      last_var.set(""),
 
 
    # ====================================Buttons===========================================
 
    frameBtn=Frame(root,bg='powder blue',borderwidth=10,relief=RIDGE,padx=20).place(x=0,y=472,width=1275,height=57)
 
-   b1=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Issue',font=('Times new roman',30,'bold'),command=issuebook).place(x=6.8,y=556.8,width=330,height=80)
-   b2=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Return',font=('Times new roman',30,'bold'),command=autoRet).place(x=334,y=556.8,width=330,height=80)
-   b3=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Display Borrowers',font=('Times new roman',30,'bold'),command=View).place(x=663,y=556.8,width=300,height=80)
-   b4=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Reset',font=('Times new roman',30,'bold')).place(x=963,y=556.8,width=300,height=80)
-   #b5=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Exit',font=('Times new roman',30,'bold'),command=root.destroy).place(x=802,y=480,width=230,height=40)---Exit Removed For now :
+   b1=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Issue',font=('Times new roman',30,'bold'),command=issuebook).place(x=6.8,y=556.8,width=230,height=80)
+   b2=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Return',font=('Times new roman',30,'bold'),command=autoRet).place(x=240,y=556.8,width=230,height=80)
+   b3=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Display Borrowers',font=('Times new roman',30,'bold'),command=View).place(x=480,y=556.8,width=230,height=80)
+   b4=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Reset',font=('Times new roman',30,'bold'),command=Reset).place(x=720,y=556.8,width=230,height=80)
+   b5=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Exit',font=('Times new roman',30,'bold'),command=partial(Manage_Window.ManageWindow,root)).place(x=950,y=556.8,width=230,height=80)
 
 
    # ===================================================Info Bar==================================
@@ -380,16 +403,16 @@ def issuebook():
       root2.mainloop()
       return
 
-   #"Fetch" button to autofill first and last name after SRN :
+   #"Fetch" button to autofill first and last name after SRN : Suhas Include this Pls :
    # Borrow summary proper display of table : Formatting of strs thats all :--Suhas Do the formatting : This is the old window :
    #Search Optn
    #Also : TextBoxes look little off : correct em :
-   #For autoEmails : A window List of all PPl who havent submitted the books on time;
+   #For autoEmails : A window List of all PPl who havent submitted the books on time; -Later
 
 
-   #Stitch the fncs proeprly : quit Btns :(HOME)
-   #Update Search to search by FirstName : Last name, Email ID
-   #Returned Successfully in return screen : + lil error handling : like no user while borrowing :
+   #Stitch the fncs proeprly : quit Btns :(HOME) --Done
+   #Update Search to search by FirstName : Last name, Email ID -Trying
+   #Returned Successfully in return screen : + lil error handling : like no user while borrowing : -Imp
    #Add a dynamic alert/Notif in dashboard(eg : "This book" due date is on "this date")
    #GUI : of everything : align everything first : + Borrow window : make fonts the same.
 

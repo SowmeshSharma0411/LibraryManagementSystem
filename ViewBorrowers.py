@@ -27,14 +27,14 @@ def View():
     headingFrame1 = Frame(root, bg="#FFBB00", bd=5)
     headingFrame1.place(relx=0.25, rely=0.1, relwidth=0.5, relheight=0.13)
 
-    headingLabel = Label(headingFrame1, text="View Books", bg='black', fg='white', font=('Courier', 15))
+    headingLabel = Label(headingFrame1, text="View Borrowers", bg='black', fg='white', font=('Courier', 15))
     headingLabel.place(relx=0, rely=0, relwidth=1, relheight=1)
 
     labelFrame = Frame(root, bg='black')
     labelFrame.place(relx=0.1, rely=0.3, relwidth=0.8, relheight=0.5)
     y = 0.25
 
-    Label(labelFrame, text="%-30s%-60s%-40s%-50s%-50s%-50s%-50s%-50s%-50s%-50s%-50s%-50s%-10s" % ('SRN', 'FirstName', 'LastName', 'Mobile','Email','Bookid','BookTitle','Author','DateBorrowed','datedue','DateReturned','DaysBorrowed','Fine'), bg='black',
+    Label(labelFrame, text="%-30s%-60s%-40s%-50s%-50s%-50s%-50s%-50s%-50s%-50s" % ('SRN', 'FirstName', 'LastName', 'Mobile','Email','Bookid','BookTitle','Author','DateBorrowed','datedue'), bg='black',
           fg='white').place(relx=0.07, rely=0.1)
     Label(labelFrame, text="----------------------------------------------------------------------------", bg='black',
           fg='white').place(relx=0.05, rely=0.2)
@@ -43,7 +43,7 @@ def View():
     cur.execute(getBooks)
     #con.commit()
     for i in cur:
-        Label(labelFrame, text="%-30s%-60s%-40s%-50s%-50s%-50s%-50s%-50s%-50s%-50s%-50s%-50s%-10s" % (i[0],i[1], i[2], i[3],i[4],i[5],i[6],i[7],i[8],i[9],i[10],i[11],i[12]), bg='black',
+        Label(labelFrame, text="%-30s%-60s%-40s%-50s%-50s%-50s%-50s%-50s%-50s%-50s" % (i[0],i[1], i[2], i[3],i[4],i[5],i[6],i[7],i[8],i[9]), bg='black',
               fg='white').place(relx=0.07, rely=y)
         y += 0.1
     '''except:

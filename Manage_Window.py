@@ -54,7 +54,9 @@ global root
 #Do we Really need to have : Update User Details and Delete User ? :
 
 
-def ManageWindow():
+def ManageWindow(root1):
+    root1.destroy()
+
     root = Tk()
     root.title("Dashboard")
     root.minsize(width=400, height=400)
@@ -118,11 +120,15 @@ def ManageBooks(root1):
 
         # Delete Book
         DeleteB = Button(labelFrame3, text="Delete Books", bg='black', fg='white', font=('courier', 15),command=partial(delete,root)) # command by Suvan and Sowmesh
-        DeleteB.place(relx=0, rely=1 / 3, relwidth=1, relheight=1 / 3)
+        DeleteB.place(relx=0, rely=1 / 4, relwidth=1, relheight=1 / 3)
 
         # View Books
         ViewB = Button(labelFrame3, text="View Books", bg='black', fg='white', font=('courier', 15),command=partial(View,root))#command by Suvan and Sowmesh
-        ViewB.place(relx=0, rely=2 / 3, relwidth=1, relheight=1 / 3)
+        ViewB.place(relx=0, rely=2 / 4, relwidth=1, relheight=1 / 3)
+
+        #Quit Button :
+        quitBtn = Button(labelFrame3, text="Quit", bg='black', fg='white', font=('courier', 15), command=partial(ManageWindow, root))
+        quitBtn.place(relx=0, rely=3/4, relwidth=1, relheight=1/3)
 
 
 # def ManageBorrowers():
