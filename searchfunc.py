@@ -1,62 +1,103 @@
-#Hafta DryRun this :
 import mysql.connector
 import main
-def search(column,table):
+import Manage_Users
+import ViewBooks
+import ViewBorrowers
+def search(table,val):
+    if(val==1):
+        searchquery = main.search_var.get()
+        column="title"
+    if(val==2):
+        column=Manage_Users.searchtype.get()
+        searchquery=Manage_Users.searchentry.get()
+        if(column=="SRN")or(column=="semester"):
+            '''if(searchquery==""):
+                return'''
+            searchquery=int(searchquery)
+    if(val==3):
+        column=ViewBooks.searchtype.get()
+        searchquery=ViewBooks.searchentry.get()
+        '''if (searchquery == ""):
+            return'''
+    if(val==4):
+        column=ViewBorrowers.searchtype.get()
+        searchquery = ViewBorrowers.searchentry.get()
 
-    searchquery=main.search_var.get()
-    print("hello")
 
-    '''con=mysql.connector.connect(host="localhost", user="root", password="root", database="db", port=3306)
+    con=mysql.connector.connect(host="localhost", user="root", password="root", database="db", port=3306)
     cur=con.cursor(buffered=True)
-    curm=con.cursor(buffered=True)
+    cur_update=con.cursor(buffered=True)
+    cur_ColumnCheck=con.cursor(buffered=True)
+
     try:
         cur.execute("SELECT * FROM "+table)
     except:
         print("searchfunc: table does not exist. table names are case sensitive")
-        return 1
-    try:
-       cur.execute("ALTER TABLE "+table+" ADD COLUMN flag int")
-    except:
-        cur.execute("ALTER TABLE "+table+" DROP COLUMN flag")
-        print("searchfunc: table column flag already exists")
+        return
+
+    '''try:
         cur.execute("ALTER TABLE "+table+" ADD COLUMN flag int")
+    except:
+        print("searchfunc: table column flag already exists, handling error by deleting column and adding it again")
+        cur.execute("ALTER TABLE "+table+" DROP COLUMN flag")
+        cur.execute("ALTER TABLE "+table+" ADD COLUMN flag int")'''
+    cur.execute("Update "+table+" SET flag=0")
+    con.commit()
+
+    if (searchquery == ""):
+        return
 
     try:
-       cur.execute("SELECT "+column+" from "+table)
+        cur.execute("SELECT "+column+" from "+table)
     except:
         print("searchfunc: column in the table does not exist. column names are case sensitive")
-        return 2
-    
+        return
     try:
-     if type(searchquery)==str:
-        searchquery=searchquery.split()
-        for k in cur:
-            if type(k[0])!=str and k[0]!=None:
-                print("searchfunc: searchquery data type and column data type are not the same")
-                return
-            try:
-               s=k[0].split()
-            except:
-                print("None data type")
-            for m in s:
-                for l in searchquery:
-                    if l.upper()==m.upper():
-                      curm.execute("UPDATE "+table+" SET flag=1 WHERE "+column+" =%s",(k[0],))                                                                    
-     if type(searchquery)==int:
-        for k in cur:
-            s=k[0]
-            print(type(s))
-            if type(s)!=int and s!=None:
-                print("searchfunc: searchquery data type and column data type are not the same")
-                return 5 #searchquery data type and column data type not the same
-            if searchquery==s:
-                curm.execute("UPDATE "+table+" SET flag=1 WHERE "+column+" =%s",(s,))
+        if type(searchquery)==str:
+           
+           cur_ColumnCheck.execute("SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name =%s AND COLUMN_NAME =%s",(table,column))
+           for k in cur_ColumnCheck:
+               if k[0]!="varchar":
+                  print("searchfunc: searchquery data type and column data type are not the same")
+                  return
+                  # checking if column data type is str. if column data type is not str, program wll exit the function.
 
+           searchquery=searchquery.split()
+           for k in cur:
+              try:
+                  s=k[0].split()            
+              except:
+                  print("searchfunc: None data type found. skipping this iteration") 
+                  continue
+                  # None.split() causes error therefore, handling error by skipping iteration. this may not even happen but just in case if it happens, The program will handle it and not crash instead 
+
+              for m in s:
+                 for l in searchquery:
+                    if (m.upper()).startswith(l.upper()):
+                       cur_update.execute("UPDATE "+table+" SET flag=1 WHERE "+column+" =%s",(k[0],))
+                       con.commit()
+
+        elif type(searchquery)==int:
+
+           cur_ColumnCheck.execute("SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = %s AND COLUMN_NAME = %s",(table,column))
+           for k in cur_ColumnCheck:
+               if k[0]!="int":
+                  print("searchfunc: searchquery data type and column data type are not the same")
+                  return
+                  # checking if column data type is int. if column data type is not int, program wll exit the function.
+
+           for k in cur:
+               s=k[0]
+               if searchquery==s:
+                   cur_update.execute("UPDATE "+table+" SET flag=1 WHERE "+column+" =%s",(s,))
+                   con.commit()
+
+        else:
+              print("searchfunc: search query data type not int or string. only str and int supported")
+              return
     except:
-        print("searchfunc: searchquery data type and column data type are not the same 2")
-        return 5 #searchquery data type and column data type not the same
-    con.commit()'''
+           print("searchfunc: error when performing search")
+           return
 
-#I am A lil doubtful about this fnc :
 
 

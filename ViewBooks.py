@@ -1,63 +1,113 @@
-from tkinter import *
-from PIL import ImageTk, Image
-from tkinter import messagebox
-import mysql.connector
-import Manage_Window
 from functools import partial
+from tkinter import *
+from tkinter import ttk
+import tkinter.ttk
+import Manage_Window
 
-# Add your own database name and password here to reflect in the code
-mypass = "root"
-mydatabase = "db"
+import mysql.connector
 
-con = mysql.connector.connect(host="localhost", user="root", password=mypass, database=mydatabase)
-cur = con.cursor()
+import searchfunc
 
 # Enter Table Names here
 bookTable = "books"
 
 
-def View(root1):
+def View(root1,val):
     root1.destroy()
 
-    root = Tk()
-    root.title("Library")
-    root.minsize(width=400, height=400)
-    root.geometry("600x500")
+    global search
+    con = mysql.connector.connect(host="localhost", user="root", password="root", database="db", port=3306)
+    cur = con.cursor(buffered=True)
+    cur4 = con.cursor(buffered=True)
 
-    Canvas1 = Canvas(root)
-    Canvas1.config(bg="#12a4d9")
-    Canvas1.pack(expand=True, fill=BOTH)
+    # if search!=None and search!="":
+    if (val == 2):
+        cur.execute("SELECT bid,title,author FROM books WHERE flag=1")
+    if (val == 1):
+        cur.execute("SELECT bid,title,author FROM books")
 
-    headingFrame1 = Frame(root, bg="#FFBB00", bd=5)
-    headingFrame1.place(relx=0.25, rely=0.1, relwidth=0.5, relheight=0.13)
+    ws = Tk()
+    ws.title('PythonGuides')
 
-    headingLabel = Label(headingFrame1, text="View Books", bg='black', fg='white', font=('Courier', 15))
-    headingLabel.place(relx=0, rely=0, relwidth=1, relheight=1)
+    ws['bg'] = '#ff6e40'
+    # ws.pack(fill=BOTH,expand=True)
 
-    labelFrame = Frame(root, bg='black')
-    labelFrame.place(relx=0.1, rely=0.3, relwidth=0.8, relheight=0.5)
-    y = 0.25
+    width = ws.winfo_screenwidth()
+    height = ws.winfo_screenheight()
+    # setting tkinter window size
+    ws.geometry("%dx%d+0+0" % (1600, 800))
 
-    Label(labelFrame, text="%-30s%-60s%-40s%-10s" % ('BID', 'Title', 'Author', 'Copies'), bg='black',
-          fg='white').place(relx=0.07, rely=0.1)
-    Label(labelFrame, text="----------------------------------------------------------------------------", bg='black',
-          fg='white').place(relx=0.05, rely=0.2)
-    getBooks = "select * from " + bookTable
-    try:
-        cur.execute(getBooks)
-        #con.commit()
-        c = 1
-        for i in cur:
-            Label(labelFrame, text="%-30s%-60s%-40s%-10s" % (c,i[1], i[2], i[3]), bg='black',
-                  fg='white').place(relx=0.07, rely=y)
-            c += 1
-            y += 0.1
-    except:
-        messagebox.showinfo("Failed to fetch files from database")
+    headingFrame5 = Frame(ws, bg="#FFBB00", bd=5)
+    headingFrame5.place(relx=0.15, rely=0.05, relwidth=0.7, relheight=0.13)
 
-    quitBtn = Button(root, text="Quit", bg='#f7f1e3', fg='black', command=partial(Manage_Window.ManageBooks,root))
-    quitBtn.place(relx=0.4, rely=0.9, relwidth=0.18, relheight=0.08)
+    headingLabel5 = Label(headingFrame5, text="View Books", bg='black', fg='white',
+                          font=('TIMES NEW ROMAN', 30, 'bold'))
+    headingLabel5.place(relx=0, rely=0, relwidth=1, relheight=1)
 
-    root.mainloop()
+    game_frame = Frame(ws, height=800, width=800, bg="black")
+    game_frame.place(relx=0.05, rely=0.2, relwidth=0.9, relheight=0.40)
 
-    #Alignment of things :  + scrollbar + search optn : like suvan's view users
+    # Canvas1.pack(expand=True, fill=BOTH)
+    # game_frame.pack(fill=BOTH,expand=True)
+
+    # scrollbar
+    game_scroll = Scrollbar(game_frame)
+    game_scroll.pack(side=RIGHT, fill=Y)
+
+    game_scroll = Scrollbar(game_frame, orient='horizontal')
+    game_scroll.pack(side=BOTTOM, fill=X)
+
+    my_game = ttk.Treeview(game_frame, yscrollcommand=game_scroll.set, xscrollcommand=game_scroll.set)
+
+    my_game.pack(fill=BOTH, expand=True)
+
+    game_scroll.config(command=my_game.yview)
+    game_scroll.config(command=my_game.xview)
+
+    # define our column
+
+    my_game['columns'] = ('bid', 'title', 'author')
+
+    # format our column
+    my_game.column("#0", width=0, stretch=NO)
+    my_game.column("bid", anchor=CENTER, width=160)
+    my_game.column("title", anchor=CENTER, width=160)
+    my_game.column("author", anchor=CENTER, width=160)
+
+    # Create Headings
+    my_game.heading("#0", text="", anchor=CENTER)
+    my_game.heading("bid", text="BID", anchor=CENTER)
+    my_game.heading("title", text="Title", anchor=CENTER)
+    my_game.heading("author", text="Author", anchor=CENTER)
+    # button command=searchfunc
+
+    global searchtype, searchentry
+
+    lbl1 = Label(ws, text='Search Type', bg='#ff6e40', fg='black', font=('Times new roman', 18, 'bold'))
+    lbl1.place(relx=0.01, rely=0.7, relwidth=0.4, relheight=0.03)
+    searchtype = tkinter.ttk.Combobox(ws, font=('times new roman', 18, 'bold'), width=13,
+                                      state='readonly')  # adding drop down box
+    searchtype['value'] = ('title','author')  # values in the drop down box
+    searchtype.place(relx=0.07, rely=0.73, relwidth=0.2, relheight=0.03)
+
+    def searching():
+        searchfunc.search("books", 3)
+        con.commit()
+        View(ws, 2)
+
+    searchentry = Entry(ws, font=('times new roman', 15, 'bold'))
+    searchentry.place(relx=0.2, rely=0.73, relwidth=0.7, relheight=0.03)
+    searchbutton = Button(ws, text="search", bg='#d1ccc0', fg='black', font=('times new roman', 20), command=searching)
+    searchbutton.place(relx=0.3, rely=0.84, relwidth=0.18, relheight=0.05)
+    quitbutton = Button(ws, text="Quit", bg='#d1ccc0', fg='black', font=('times new roman', 20),
+                        command=partial(Manage_Window.ManageBooks, ws))
+    quitbutton.place(relx=0.5, rely=0.84, relwidth=0.18, relheight=0.05)
+
+    m = 0
+    for k in cur:
+        #m += 1
+        my_game.insert(parent='', index='end', text='', values= k)
+        # Eroor box has to be displayed :
+
+    # print("exit loop tkinter")
+    # print(b)

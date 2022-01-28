@@ -5,6 +5,7 @@ import tkinter.ttk
 import mysql.connector
 from functools import partial
 import Manage_Window
+import searchfunc
 search=None
 
 
@@ -33,7 +34,7 @@ def ManageUsers(root1):
     labelFrame2.place(relx=0.1, rely=0.3, relwidth=0.8, relheight=0.5)
 
     # Display Current Users  # Need to display from database  # must be done by Sowmesh and Suvan
-    Display = Button(labelFrame2, text="Display Current Users", bg='black', fg='white', font=('courier', 15),command=partial(viewusers,root))
+    Display = Button(labelFrame2, text="Display Current Users", bg='black', fg='white', font=('courier', 15),command=partial(viewusers,root,1))
     Display.place(relx=0, rely=0, relwidth=1, relheight=1 / 4)
 
     # Add Users
@@ -53,11 +54,11 @@ def ManageUsers(root1):
 
     root.mainloop()
 
-def viewusers(root1):
+def viewusers(root1,val):
     root1.destroy()
     
     global search
-    def searchfunc():
+    '''def searchfunc():
         global search
         nonlocal cur,cur4
         #if searchentry.get()!="":
@@ -84,7 +85,7 @@ def viewusers(root1):
         #print(search)
         con.commit()
         ws.destroy()
-        viewusers()
+        viewusers()'''
 
 
 
@@ -93,16 +94,16 @@ def viewusers(root1):
     cur = con.cursor(buffered=True)
     cur4=con.cursor(buffered=True)
     
-    if search!=None and search!="":
-        try:
+    #if search!=None and search!="":
+    if(val==2):
 
-           cur.execute("SELECT SRN,name,Last_name,Branch,semester,mobile_no,email_id FROM users WHERE flag=1")
-        except:
-            cur.execute("SELECT SRN,name,Last_name,Branch,semester,mobile_no,email_id FROM users")
+       cur.execute("SELECT SRN,name,Last_name,Branch,semester,mobile_no,email_id FROM users WHERE flag=1")
+    if(val==1):
+        cur.execute("SELECT SRN,name,Last_name,Branch,semester,mobile_no,email_id FROM users")
         
 
-    else :
-        cur.execute("SELECT SRN,name,Last_name,Branch,semester,mobile_no,email_id FROM users")
+    '''else :
+        cur.execute("SELECT SRN,name,Last_name,Branch,semester,mobile_no,email_id FROM users")'''
 
 
     ws  = Tk()
@@ -171,9 +172,23 @@ def viewusers(root1):
     my_game.heading("phone_number",text="Phone Number",anchor=CENTER)
     my_game.heading("emailid",text="Email ID",anchor=CENTER)
     #button command=searchfunc
+
+    global searchtype,searchentry
+
+    lbl1 = Label(ws, text='Search Type', bg='#ff6e40', fg='white', font=('Times new roman', 18, 'bold'))
+    lbl1.place(relx=0.01, rely=0.7, relwidth=0.4, relheight=0.03)
+    searchtype = tkinter.ttk.Combobox(ws, font=('times new roman', 18, 'bold'), width=13, state='readonly')  # adding drop down box
+    searchtype['value'] = ('SRN', 'name','Last_name','Branch','semester')  # values in the drop down box
+    searchtype.place(relx=0.07, rely=0.73, relwidth=0.2, relheight=0.03)
+
+    def searching():
+        searchfunc.search("users",2)
+        con.commit()
+        viewusers(ws,2)
+
     searchentry= Entry(ws, font=('times new roman', 15, 'bold'))
-    searchentry.place(relx=0.15, rely=0.73, relwidth=0.7, relheight=0.03)
-    searchbutton= Button(ws, text="search", bg='#d1ccc0', fg='black',font=('times new roman',20),command=searchfunc)
+    searchentry.place(relx=0.2, rely=0.73, relwidth=0.7, relheight=0.03)
+    searchbutton= Button(ws, text="search", bg='#d1ccc0', fg='black',font=('times new roman',20),command=searching)
     searchbutton.place(relx=0.3, rely=0.84, relwidth=0.18, relheight=0.05)
     quitbutton= Button(ws, text="Quit", bg='#d1ccc0', fg='black',font=('times new roman',20),command=partial(ManageUsers,ws))
     quitbutton.place(relx=0.5, rely=0.84, relwidth=0.18, relheight=0.05)
@@ -184,12 +199,6 @@ def viewusers(root1):
     for k in cur:
         m+=1
         my_game.insert(parent='',index='end',iid=m,text='',values=(m,)+k)
-        
-    
-    try:
-       cur.execute("ALTER TABLE users DROP flag")
-    except:
-        print("flag already dropped")
         #Eroor box has to be displayed :
 
     #print("exit loop tkinter")
@@ -234,7 +243,7 @@ def adduser():
 
 
 def AddUserGUI(root1):
-    root1.destory()
+    #root1.destory()
     #print("enter")
     global info5,info5b,comMemberc,comMemberd,email,mobile_no,SRN,root
     
@@ -397,7 +406,7 @@ def AddUserGUI(root1):
     Submit5.place(relx=0.4, rely=0.8, relwidth=0.18, relheight=0.13)
 
     Quit = Button(labelFrame5, text="Quit", bg='#d1ccc0', fg='black', font=('times new roman', 20),
-                     command=partial(ManageUsers,root))
+                     command=root.destroy)
     Quit.place(relx=0.7, rely=0.8, relwidth=0.18, relheight=0.13)
     #print("leaving")
 

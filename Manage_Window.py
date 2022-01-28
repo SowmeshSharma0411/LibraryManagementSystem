@@ -123,7 +123,7 @@ def ManageBooks(root1):
         DeleteB.place(relx=0, rely=1 / 4, relwidth=1, relheight=1 / 3)
 
         # View Books
-        ViewB = Button(labelFrame3, text="View Books", bg='black', fg='white', font=('courier', 15),command=partial(View,root))#command by Suvan and Sowmesh
+        ViewB = Button(labelFrame3, text="View Books", bg='black', fg='white', font=('courier', 15),command=partial(View,root,1))#command by Suvan and Sowmesh
         ViewB.place(relx=0, rely=2 / 4, relwidth=1, relheight=1 / 3)
 
         #Quit Button :

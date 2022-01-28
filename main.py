@@ -13,7 +13,7 @@ from fines import *
 from ViewBorrowers import *
 import Manage_Window
 from Manage_Window import *
-from searchfunc import *
+import searchfunc
 
 import datetime
 
@@ -147,6 +147,7 @@ def myfunc(root1):
    DataFrameRight=LabelFrame(frame,bg='#ff6e40',fg='midnightblue',text='Book Details',font=('algerian',15,'bold'),borderwidth='10',relief=RIDGE,padx=0,pady=0).place(x=750,y=102,width=525,height=445)
 
    # Taking Books from the database into a list :
+   global b
    b = []
    author = []
 
@@ -184,12 +185,40 @@ def myfunc(root1):
    Entry8b = Entry(bg='white', width=30, font=('times new roman', 18, 'bold'),textvariable=search_var)
    Entry8b.place(x=850, y=130, height=35, relwidth=0.3)
 
+   def searching(b):
+      searchfunc.search("books",1)
+      con2 = mysql.connector.connect(host="localhost", user="root", password="root", database="db")
+      cur2= con2.cursor(buffered=True)
+      cur2.execute("SELECT title from books WHERE flag=1")
+      b1=[]
+      for i in cur2:
+         b1.append(i)
+      if(len(b1)==0):
+         a.delete(0, END)
+         for item in b:
+            a.insert(END, item)
+      else:
+         b=[]
+         b=b1
+         a.delete(0,END)
+         for item in b:
+            a.insert(END, item)
+      scrlbar = Scrollbar(DataFrameRight)
+      scrlbar.place(x=1245, y=180, height=345)
+
+      a.config(yscrollcommand=scrlbar.set)
+      scrlbar.config(command=a.yview())
+
+      scrlbar.config(command=a.yview)
+
+      #cur.execute("Update books SET flag=0")
+      #con.commit()
+      #Cursor is taking rsults from the prev search
+
    #Hafta add a Go Button to get the thing working.
    b1 = Button(root, bg='chocolate', fg='black', borderwidth=5, relief=RAISED, text='Go',
-               font=('Times new roman',10, 'bold'), command=partial(search,"title","books")).place(x=1200, y=130, height=35,relwidth=0.07)
-   '''cur.execute("SELECT * from books WHERE flag=1")
-   for i in cur:
-      print(i)'''
+               font=('Times new roman',10, 'bold'), command=partial(searching,b)).place(x=1200, y=130, height=35,relwidth=0.07)
+      #cur.execute("UPDATE books SET flag=0 WHERE title =%s" %(info1[i]))
    #search_var = always str
 
    for item in b:
@@ -241,7 +270,7 @@ def myfunc(root1):
 
    b1=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Issue',font=('Times new roman',30,'bold'),command=issuebook).place(x=6.8,y=556.8,width=230,height=80)
    b2=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Return',font=('Times new roman',30,'bold'),command=autoRet).place(x=240,y=556.8,width=230,height=80)
-   b3=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Display Borrowers',font=('Times new roman',30,'bold'),command=View).place(x=480,y=556.8,width=230,height=80)
+   b3=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Display Borrowers',font=('Times new roman',30,'bold'),command=partial(View,root,1)).place(x=480,y=556.8,width=230,height=80)
    b4=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Reset',font=('Times new roman',30,'bold'),command=Reset).place(x=720,y=556.8,width=230,height=80)
    b5=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Exit',font=('Times new roman',30,'bold'),command=partial(Manage_Window.ManageWindow,root)).place(x=950,y=556.8,width=230,height=80)
 
