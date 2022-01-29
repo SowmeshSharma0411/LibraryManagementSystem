@@ -111,3 +111,4 @@ def View(root1,val):
 
     # print("exit loop tkinter")
     # print(b)
+#Enter column : msgbox if none selected :

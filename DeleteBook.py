@@ -116,14 +116,14 @@ def delete(root1):
 def deleteBook(title):
     deleteSql = "delete from " + bookTable + " where title = '" + title + "'"
     print(deleteSql)
-    '''try:
+    try:
         cur.execute(deleteSql)
         con.commit()
         messagebox.showinfo('Success', "Book Record Deleted Successfully")
     except:
         messagebox.showinfo("Please enter the correct title of the book")
 
-    bookInfo1.delete(0, END)'''
+    bookInfo1.delete(0, END)
     #root.destroy()
 #Some pRoblem here : colon isnt acccpeted as a valid symbol
 #What if a person wants to delete a book from entry evnthough another person has borrowed it :

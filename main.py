@@ -51,7 +51,7 @@ def myfunc(root1):
 
 
 
-   l1=Label(text='LIBRARY MANAGEMENT SYSTEM',bg='#ff6e40',fg='red',borderwidth=10,relief=RIDGE,font=('Times New Roman',50,'bold',),padx=2,pady=6).place(x=0,y=0,width=1275,height=100)
+   l1=Label(text='LIBRARY MANAGEMENT SYSTEM',bg='#ff6e40',fg='black',borderwidth=10,relief=RIDGE,font=('Times New Roman',50,'bold',),padx=2,pady=6).place(x=0,y=0,width=1275,height=100)
 
    frame=Frame(root,bg='#ff6e40').place(x=0,y=102,width=1275,height=570)
 
@@ -88,7 +88,7 @@ def myfunc(root1):
 
 
    b1 = Button(root, bg='chocolate', fg='black', borderwidth=5, relief=RAISED, text='Fetch',
-               font=('Times new roman', 10, 'bold'), command=autoUser).place(relx=0.53,rely=0.25,height=30.5,relwidth=0.07)
+               font=('Times new roman', 15, 'bold'), command=autoUser).place(relx=0.49,rely=0.25,height=30.5,relwidth=0.08)
 
    lbl2b=Label(DataFrameLeft,text='Book Title',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
    lbl2b.place(relx=0.02,rely=0.53)
@@ -183,7 +183,7 @@ def myfunc(root1):
    lbl8b = Label(DataFrameRight, text='Search', bg='#ff6e40', fg='black', font=('Times new roman', 18, 'bold'))
    lbl8b.place(x=765, y=130)
    Entry8b = Entry(bg='white', width=30, font=('times new roman', 18, 'bold'),textvariable=search_var)
-   Entry8b.place(x=850, y=130, height=35, relwidth=0.3)
+   Entry8b.place(x=850, y=130, height=35, relwidth=0.24)
 
    def searching(b):
       searchfunc.search("books",1)
@@ -217,7 +217,7 @@ def myfunc(root1):
 
    #Hafta add a Go Button to get the thing working.
    b1 = Button(root, bg='chocolate', fg='black', borderwidth=5, relief=RAISED, text='Go',
-               font=('Times new roman',10, 'bold'), command=partial(searching,b)).place(x=1200, y=130, height=35,relwidth=0.07)
+               font=('Times new roman',15, 'bold'), command=partial(searching,b)).place(x=1170, y=130, height=35,relwidth=0.07)
       #cur.execute("UPDATE books SET flag=0 WHERE title =%s" %(info1[i]))
    #search_var = always str
 
@@ -262,17 +262,20 @@ def myfunc(root1):
       srn_var.set(""),
       first_var.set(""),
       last_var.set(""),
+      booktitle_var.set(""),
+      author_var.set(""),
+      bookid_var.set(""),
 
 
    # ====================================Buttons===========================================
 
-   frameBtn=Frame(root,bg='powder blue',borderwidth=10,relief=RIDGE,padx=20).place(x=0,y=472,width=1275,height=57)
+   frameBtn=Frame(root,bg='powder blue',borderwidth=10,relief=RIDGE,padx=20).place(x=0,y=550,width=1275,height=95)
 
-   b1=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Issue',font=('Times new roman',30,'bold'),command=issuebook).place(x=6.8,y=556.8,width=230,height=80)
-   b2=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Return',font=('Times new roman',30,'bold'),command=autoRet).place(x=240,y=556.8,width=230,height=80)
-   b3=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Display Borrowers',font=('Times new roman',30,'bold'),command=partial(View,root,1)).place(x=480,y=556.8,width=230,height=80)
-   b4=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Reset',font=('Times new roman',30,'bold'),command=Reset).place(x=720,y=556.8,width=230,height=80)
-   b5=Button(frameBtn,bg='navy',fg='yellow',borderwidth=5,relief=RAISED,text='Exit',font=('Times new roman',30,'bold'),command=partial(Manage_Window.ManageWindow,root)).place(x=950,y=556.8,width=230,height=80)
+   b1=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Issue',font=('Times new roman',35,'bold'),command=issuebook).place(x=6.8,y=556.8,relwidth=1/6,height=80)
+   b2=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Return',font=('Times new roman',35,'bold'),command=autoRet).place(x=220,y=556.8,relwidth=1/6,height=80)
+   b3=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Display Borrowers',font=('Times new roman',35,'bold'),command=partial(View,root,1)).place(x=433,y=556.8,relwidth=1/3,height=80)
+   b4=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Reset',font=('Times new roman',35,'bold'),command=Reset).place(x=860,y=556.8,relwidth=1/6,height=80)
+   b5=Button(frameBtn,bg='chocolate',fg='black',borderwidth=5,relief=RAISED,text='Exit',font=('Times new roman',35,'bold'),command=partial(Manage_Window.ManageWindow,root)).place(x=1075,y=556.8,width=190,height=80)
 
 
    # ===================================================Info Bar==================================
@@ -373,7 +376,7 @@ def issuebook():
          # gui code for a dailog box specifying the above message
          # exit button to exit program and return to main menu'''
 
-      fetchuser="SELECT * FROM users WHERE SRN = "+str(input_userid)
+      fetchuser="SELECT SRN,name,Last_name,Branch,semester,mobile_no,email_id FROM users WHERE SRN = "+str(input_userid)
       cur.execute(fetchuser)
 
       l=[]
@@ -402,13 +405,70 @@ def issuebook():
       con.commit()
       # basic gui code for a dialog box----A summary Box must be displayed too :
       #print("success, book has been issued")
-      headingLabel = Label(root2, text="book issued successfully", bg='black', fg='white', font=('Courier', 15))
+
+      Canvas1 = Canvas(root2)
+
+      Canvas1.config(bg="#006B38")
+      Canvas1.pack(expand=True, fill=BOTH)
+
+      headingFrame1 = Frame(root2, bg="#FFBB00", bd=5)
+      headingFrame1.place(relx=0.25, rely=0.1, relwidth=0.5, relheight=0.13)
+
+      headingLabel = Label(headingFrame1, text="Issue Summary", bg='black', fg='white', font=('Courier', 15))
       headingLabel.place(relx=0, rely=0, relwidth=1, relheight=1)
-      Label(root2, text="%-30s%-30s%-75s%-60s%-30s%-50s%-50s%-50s%-50s%-50s" % (
+
+      game_scroll = Scrollbar(headingFrame1)
+      game_scroll.pack(side=RIGHT, fill=Y)
+
+      game_scroll = Scrollbar(headingFrame1, orient='horizontal')
+      game_scroll.pack(side=BOTTOM, fill=X)
+
+      my_game = ttk.Treeview(headingFrame1, yscrollcommand=game_scroll.set, xscrollcommand=game_scroll.set)
+
+      my_game.pack(fill=BOTH, expand=True)
+
+      game_scroll.config(command=my_game.yview)
+      game_scroll.config(command=my_game.xview)
+
+      my_game['columns'] = (
+      'SRN', 'FirstName', 'LastName', 'Mobile', 'Email', 'Bookid', 'BookTitle', 'Author', 'DateBorrowed', 'datedue')
+
+      my_game.column("#0", width=0, stretch=NO)
+      my_game.column("SRN", anchor=CENTER, width=160)
+      my_game.column("FirstName", anchor=CENTER, width=160)
+      my_game.column("LastName", anchor=CENTER, width=80)
+      my_game.column("Mobile", anchor=CENTER, width=80)
+      my_game.column("Email", anchor=CENTER, width=80)
+      my_game.column("Bookid", anchor=CENTER, width=80)
+      my_game.column("BookTitle", anchor=CENTER, width=80)
+      my_game.column("Author", anchor=CENTER, width=80)
+      my_game.column("DateBorrowed", anchor=CENTER, width=80)
+      my_game.column("datedue", anchor=CENTER, width=80)
+
+      # Create Headings
+      my_game.heading("#0", text="", anchor=CENTER)
+      my_game.heading("SRN", text="SRN", anchor=CENTER)
+      my_game.heading("FirstName", text="FirstName", anchor=CENTER)
+      my_game.heading("LastName", text="LastName", anchor=CENTER)
+      my_game.heading("Mobile", text="Mobile", anchor=CENTER)
+      my_game.heading("Email", text="Email", anchor=CENTER)
+      my_game.heading("Bookid", text="BookID", anchor=CENTER)
+      my_game.heading("BookTitle", text="BookTitle", anchor=CENTER)
+      my_game.heading("Author", text="Author", anchor=CENTER)
+      my_game.heading("DateBorrowed", text="DateBorrowed", anchor=CENTER)
+      my_game.heading("datedue", text="datedue", anchor=CENTER)
+
+
+      headingLabel = Label(headingFrame1, text="book issued successfully", bg='black', fg='white', font=('Courier', 15))
+      headingLabel.place(relx=0, rely=0, relwidth=1, relheight=1)
+
+
+
+      '''Label(root2, text="%-30s%-30s%-75s%-60s%-30s%-50s%-50s%-50s%-50s%-50s" % (
          'SRN','FirstName','LastName','Mobile','Email','Bookid','BookTitle','Author','DateBorrowed','datedue'), bg='black', fg='white').place(relx=0.07,
                                                                                                           rely=0.1)
       Label(root2, text="----------------------------------------------------------------------------", bg='black',
-            fg='white').place(relx=0.05, rely=0.2)
+            fg='white').place(relx=0.05, rely=0.2)'''
 
       c = 1
       y = 0.3
@@ -421,10 +481,12 @@ def issuebook():
       for i in l:
          l1=[]
          l1=(i[0],i[1],i[2],i[3],i[4],i[5],i[6],i[7],i[8],i[9])
-         Label(root2, text="%-30s%-30s%-60s%-60s%-30s%-50s%-50s%-50s%-50s%-50s" %(l1),
-               bg='black', fg='white').place(relx=0.08, rely=y)
+         break
+      my_game.insert(parent='', index='end', text='', values=l1)
+      '''Label(root2, text="%-30s%-30s%-60s%-60s%-30s%-50s%-50s%-50s%-50s%-50s" %(l1),
+            bg='black', fg='white').place(relx=0.08, rely=y)'''
          #c += 1
-         y += 0.1
+         #y += 0.1
 
       quitBtn = Button(root2, text="Quit", bg='#f7f1e3', fg='black', command=root2.destroy)
       quitBtn.place(relx=0.53, rely=0.6, relwidth=0.18, relheight=0.08)
@@ -440,7 +502,7 @@ def issuebook():
 
 
    #Stitch the fncs proeprly : quit Btns :(HOME) --Done
-   #Update Search to search by FirstName : Last name, Email ID -Trying
+   #Update Search to search by FirstName : Last name, Email ID -Trying - done
    #Returned Successfully in return screen : + lil error handling : like no user while borrowing : -Imp
    #Add a dynamic alert/Notif in dashboard(eg : "This book" due date is on "this date")
    #GUI : of everything : align everything first : + Borrow window : make fonts the same.

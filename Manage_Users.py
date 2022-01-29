@@ -204,6 +204,8 @@ def viewusers(root1,val):
     #print("exit loop tkinter")
     #print(b)
 
+    #No records found :
+
 
 
 def adduser():

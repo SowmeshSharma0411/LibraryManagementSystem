@@ -22,6 +22,7 @@ def auth():
 
     if (user != Librarian) or (passs != password):
         quit()
+        #UserId doesnt exist :
     else:
         ManageWindow(root)
 

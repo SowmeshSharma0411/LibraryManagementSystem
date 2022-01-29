@@ -99,5 +99,6 @@ def search(table,val):
            print("searchfunc: error when performing search")
            return
 
+#if no book records exists :
 
 

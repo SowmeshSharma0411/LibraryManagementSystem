@@ -104,7 +104,3 @@ def addBook(root1):
     quitBtn.place(relx=0.5, rely=0.7, relwidth=0.18, relheight=0.08)
 
     root.mainloop()
-
-
-    #No duplicate book can be added :
-    #ImportError: cannot import name 'ManageBooks' from partially initialized module 'Manage_Window' (most likely due to a circular import) (C:\Users\sowme\Pychar
