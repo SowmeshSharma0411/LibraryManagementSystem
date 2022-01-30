@@ -34,18 +34,18 @@ def ManageUsers(root1):
     labelFrame2.place(relx=0.1, rely=0.3, relwidth=0.8, relheight=0.5)
 
     # Display Current Users  # Need to display from database  # must be done by Sowmesh and Suvan
-    Display = Button(labelFrame2, text="Display Current Users", bg='black', fg='white', font=('courier', 15),command=partial(viewusers,root,1))
+    Display = Button(labelFrame2, text="Display Current Users", bg='black', fg='white', font=('baskerville old face', 25),command=partial(viewusers,root,1))
     Display.place(relx=0, rely=0, relwidth=1, relheight=1 / 4)
 
     # Add Users
-    Add = Button(labelFrame2, text="Add New User", bg='black', fg='white', font=('courier', 15), command=partial(AddUserGUI,root))
+    Add = Button(labelFrame2, text="Add New User", bg='black', fg='white', font=('baskerville old face', 25), command=partial(AddUserGUI,root))
     Add.place(relx=0, rely=1 / 4, relwidth=1, relheight=1 / 4)
 
     # Delete Users
-    Delete = Button(labelFrame2, text='Delete User', bg='black', fg='white', font=('courier', 15))
+    Delete = Button(labelFrame2, text='Delete User', bg='black', fg='white', font=('baskerville old face', 25))
     Delete.place(relx=0, rely=2 / 4, relwidth=1, relheight=1 / 4)
 
-    quit = Button(labelFrame2, text='Quit', bg='black', fg='white', font=('courier', 15), command=partial(Manage_Window.ManageWindow,root))
+    quit = Button(labelFrame2, text='Quit', bg='black', fg='white', font=('baskerville old face', 25), command=partial(Manage_Window.ManageWindow,root))
     quit.place(relx=0, rely=3 / 4, relwidth=1, relheight=1 / 4)
 
     # Delete Users # by Sowmesh and Suvan
@@ -126,7 +126,7 @@ def viewusers(root1,val):
 
 
     game_frame = Frame(ws,height=800,width=800,bg="black")
-    game_frame.place(relx=0.05, rely=0.2, relwidth=0.9, relheight=0.40)
+    game_frame.place(relx=0.03, rely=0.3, relwidth=0.95, relheight=0.55)
   
     #Canvas1.pack(expand=True, fill=BOTH)
     #game_frame.pack(fill=BOTH,expand=True)
@@ -152,7 +152,7 @@ def viewusers(root1,val):
 
     # format our column
     my_game.column("#0", width=0,  stretch=NO)
-    my_game.column("sl_no",anchor=CENTER, width=160)
+    my_game.column("sl_no",anchor=CENTER, width=20)
     my_game.column("Srn",anchor=CENTER,width=160)
     my_game.column("name",anchor=CENTER,width=80)
     my_game.column("last_name",anchor=CENTER,width=80)
@@ -175,23 +175,23 @@ def viewusers(root1,val):
 
     global searchtype,searchentry
 
-    lbl1 = Label(ws, text='Search Type', bg='#ff6e40', fg='white', font=('Times new roman', 18, 'bold'))
-    lbl1.place(relx=0.01, rely=0.7, relwidth=0.4, relheight=0.03)
+    lbl1 = Label(ws, text='Search Type', bg='#ff6e40', fg='white', font=('Times new roman', 15, 'bold'))
+    lbl1.place(x=2, rely=0.19, relwidth=0.4, relheight=0.03)
     searchtype = tkinter.ttk.Combobox(ws, font=('times new roman', 18, 'bold'), width=13, state='readonly')  # adding drop down box
     searchtype['value'] = ('SRN', 'name','Last_name','Branch','semester')  # values in the drop down box
-    searchtype.place(relx=0.07, rely=0.73, relwidth=0.2, relheight=0.03)
+    searchtype.place(relx=0.06, rely=0.23, relwidth=0.18, relheight=0.05)
 
     def searching():
         searchfunc.search("users",2)
         con.commit()
         viewusers(ws,2)
 
-    searchentry= Entry(ws, font=('times new roman', 15, 'bold'))
-    searchentry.place(relx=0.2, rely=0.73, relwidth=0.7, relheight=0.03)
+    searchentry= Entry(ws, font=('times new roman', 18, 'bold'))
+    searchentry.place(relx=0.25, rely=0.23, relwidth=0.55, relheight=0.05)
     searchbutton= Button(ws, text="search", bg='#d1ccc0', fg='black',font=('times new roman',20),command=searching)
-    searchbutton.place(relx=0.3, rely=0.84, relwidth=0.18, relheight=0.05)
+    searchbutton.place(relx=0.82, rely=0.23, relwidth=0.14, relheight=0.05)
     quitbutton= Button(ws, text="Quit", bg='#d1ccc0', fg='black',font=('times new roman',20),command=partial(ManageUsers,ws))
-    quitbutton.place(relx=0.5, rely=0.84, relwidth=0.18, relheight=0.05)
+    quitbutton.place(relx=0.36, rely=0.87, relwidth=0.18, relheight=0.05)
     
 
     

@@ -142,6 +142,5 @@ def returnBook():
     quitBtn.place(relx=0.53,rely=0.9, relwidth=0.18,relheight=0.08)
     
     root.mainloop()
-
-#For Return Summary :  Add scrollbar :
 #For Custom Error msg if user cant borrow : cuz he is not registered in the users database :
+#Dont run in loop

@@ -77,15 +77,15 @@ def ManageWindow(root1):
     labelFrame.place(relx=0.1, rely=0.3, relwidth=0.8, relheight=0.5)
 
     # Manage Users
-    Users = Button(labelFrame, text="Manage Users", bg='black', fg='white', font=('courier', 15),command=partial(ManageUsers,root))
+    Users = Button(labelFrame, text="Manage Users", bg='black', fg='white', font=('baskerville old face', 25),command=partial(ManageUsers,root))
     Users.place(relx=0, rely=0, relwidth=1, relheight=1 / 3)
 
     # Manage Books
-    Books = Button(labelFrame, text="Manage Books", bg='black', fg='white', font=('courier', 15),command=partial(ManageBooks,root))
+    Books = Button(labelFrame, text="Manage Books", bg='black', fg='white', font=('baskerville old face', 25),command=partial(ManageBooks,root))
     Books.place(relx=0, rely=1/3, relwidth=1, relheight=1 / 3)
 
     #Manage Borrowers
-    Borrowers=Button(labelFrame, text='Manage Borrowers', bg='black', fg='white', font=('courier', 15),command=partial(myfunc,root))
+    Borrowers=Button(labelFrame, text='Manage Borrowers', bg='black', fg='white', font=('baskerville old face', 25),command=partial(myfunc,root))
     Borrowers.place(relx=0,rely=2/3,relwidth=1,relheight=1/3)
 
 
@@ -115,19 +115,19 @@ def ManageBooks(root1):
         labelFrame3.place(relx=0.1, rely=0.3, relwidth=0.8, relheight=0.5)
 
         # Add Book
-        AddB = Button(labelFrame3, text="Add Books", bg='black', fg='white', font=('courier', 15),command=partial(addBook,root))
+        AddB = Button(labelFrame3, text="Add Books", bg='black', fg='white', font=('times new roman', 18,'bold'),command=partial(addBook,root))
         AddB.place(relx=0, rely=0, relwidth=1, relheight=1 / 3)
 
         # Delete Book
-        DeleteB = Button(labelFrame3, text="Delete Books", bg='black', fg='white', font=('courier', 15),command=partial(delete,root)) # command by Suvan and Sowmesh
+        DeleteB = Button(labelFrame3, text="Delete Books", bg='black', fg='white', font=('times new roman', 18,'bold'),command=partial(delete,root)) # command by Suvan and Sowmesh
         DeleteB.place(relx=0, rely=1 / 4, relwidth=1, relheight=1 / 3)
 
         # View Books
-        ViewB = Button(labelFrame3, text="View Books", bg='black', fg='white', font=('courier', 15),command=partial(View,root,1))#command by Suvan and Sowmesh
+        ViewB = Button(labelFrame3, text="View Books", bg='black', fg='white', font=('times new roman', 18,'bold'),command=partial(View,root,1))#command by Suvan and Sowmesh
         ViewB.place(relx=0, rely=2 / 4, relwidth=1, relheight=1 / 3)
 
         #Quit Button :
-        quitBtn = Button(labelFrame3, text="Quit", bg='black', fg='white', font=('courier', 15), command=partial(ManageWindow, root))
+        quitBtn = Button(labelFrame3, text="Quit", bg='black', fg='white', font=('times new roman', 18,'bold'), command=partial(ManageWindow, root))
         quitBtn.place(relx=0, rely=3/4, relwidth=1, relheight=1/3)
 
 

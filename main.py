@@ -474,7 +474,12 @@ def issuebook():
       y = 0.3
       l=[]
       cur.execute("SELECT SRN,FirstName,LastName,Mobile,Email,Bookid,BookTitle,Author,DateBorrowed,datedue FROM borrowers WHERE SRN = "+str(input_userid))
-      for i in cur:
+
+      m = 0
+      for k in cur:
+         m += 1
+         my_game.insert(parent='', index='end', iid=m, text='', values=(m,) + k)
+      '''for i in cur:
          l.append(i)
       l1=[]
       #print(l)
@@ -482,7 +487,7 @@ def issuebook():
          l1=[]
          l1=(i[0],i[1],i[2],i[3],i[4],i[5],i[6],i[7],i[8],i[9])
          break
-      my_game.insert(parent='', index='end', text='', values=l1)
+      my_game.insert(parent='', index='end', text='', values=l1)'''
       '''Label(root2, text="%-30s%-30s%-60s%-60s%-30s%-50s%-50s%-50s%-50s%-50s" %(l1),
             bg='black', fg='white').place(relx=0.08, rely=y)'''
          #c += 1
