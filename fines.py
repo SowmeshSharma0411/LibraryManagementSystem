@@ -14,6 +14,8 @@ def fines(Bor,Ret):
 
     days=dateR-dateB
     days=str(days)
+    if(days=="0:00:00"):
+        return 0
     days=str(days[0:days.index(" ")])
     days=int(days)
 

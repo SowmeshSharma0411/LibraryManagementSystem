@@ -100,8 +100,9 @@ def ManageWindow(root1):
     logoutbtn.place(relx=0.78, rely=0.063, relheight=0.07, relwidth=0.15)
 
     def openhtml():
-        url="LMS_Project_Report_v0.2 - Copy.html"
-        webbrowser.open_new_tab("LMS_Project_Report_v0.2 - Copy.html")
+        #convert into pdf and put link of pdf as url.
+        url="LMS_Project_Report_v0.2 - Copy.pdf"
+        webbrowser.open_new_tab("LMS_Project_Report_v0.2 - Copy.pdf")
     #i tried :
     helpbtn = Button(root, bg='black', fg='white', text='Help', font=('times new roman', 20, 'bold'), borderwidth=6,
                      relief=RAISED,command=openhtml)

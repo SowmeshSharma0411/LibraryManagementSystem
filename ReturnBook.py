@@ -104,13 +104,13 @@ def returnBook():
     'SRN', 'FirstName', 'LastName', 'Bookid', 'BookTitle', 'Author', 'Fine')
 
     my_game.column("#0", width=0, stretch=NO)
-    my_game.column("SRN", anchor=CENTER, width=160)
-    my_game.column("FirstName", anchor=CENTER, width=160)
+    my_game.column("SRN", anchor=CENTER, width=30)
+    my_game.column("FirstName", anchor=CENTER, width=80)
     my_game.column("LastName", anchor=CENTER, width=80)
-    my_game.column("Bookid", anchor=CENTER, width=80)
-    my_game.column("BookTitle", anchor=CENTER, width=80)
+    my_game.column("Bookid", anchor=CENTER, width=20)
+    my_game.column("BookTitle", anchor=CENTER, width=120)
     my_game.column("Author", anchor=CENTER, width=80)
-    my_game.column("Fine", anchor=CENTER, width=80)
+    my_game.column("Fine", anchor=CENTER, width=50)
 
     # Create Headings
     my_game.heading("#0", text="", anchor=CENTER)

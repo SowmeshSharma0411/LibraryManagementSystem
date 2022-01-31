@@ -16,8 +16,7 @@ cur = con.cursor()
 
 # Enter Table Names here
 bookTable = "books" #Book Table
-
-b=[]
+'''b=[]
 author=[]
 
 s = "SELECT title FROM books"
@@ -30,7 +29,7 @@ s = "SELECT author FROM books"
 cur.execute(s)
 
 for x in cur:
-    author.append(x)
+    author.append(x)'''
 
 def select(e):
 
@@ -62,6 +61,7 @@ def delete(root1):
     root1.destroy()
     
     global bookInfo1,bookInfo2,bookInfo3,bookInfo4,Canvas1,con,cur,bookTable,root,title
+    global b,author
     
     root = Tk()
     root.title("Library")
@@ -82,6 +82,21 @@ def delete(root1):
     
     labelFrame = Frame(root,bg='black')
     labelFrame.place(relx=0.1,rely=0.3,relwidth=0.8,relheight=0.5)
+
+    b = []
+    author = []
+
+    s = "SELECT title FROM books"
+    cur.execute(s)
+
+    for x in cur:
+        b.append(x)
+
+    s = "SELECT author FROM books"
+    cur.execute(s)
+
+    for x in cur:
+        author.append(x)
 
     # creating DropBox
     lb2 = Label(labelFrame, text="Book Title : ", bg='black', fg='white')
