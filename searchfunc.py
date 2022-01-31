@@ -4,6 +4,7 @@ import Manage_Users
 import ViewBooks
 import ViewBorrowers
 def search(table,val):
+    global searchquery
     if(val==1):
         searchquery = main.search_var.get()
         column="title"

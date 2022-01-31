@@ -62,18 +62,18 @@ def myfunc(root1):
    DataFrameLeft=LabelFrame(frame,bg='#ff6e40',text='Library Member Information',fg='midnightblue',font=('algerian',15,'bold'),borderwidth='10',relief=RIDGE,padx=0,pady=0).place(x=0,y=102,width=750,height=445)
 
    lbl1=Label(frame,text='Member Type',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
-   lbl1.place(x=0.03,y=130)
+   lbl1.place(relx=0.03,y=130)
    comMember=tkinter.ttk.Combobox(DataFrameLeft,font=('times new roman',18,'bold'),width=13,state='readonly',textvariable=member_var)  #adding drop down box
    comMember['value']=('Student','Lecturer')   #values in the drop down box
    comMember.place(relx=0.18, rely=0.19,relwidth=0.35)
 
    lbl1b=Label(DataFrameLeft,text='Book ID',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
-   lbl1b.place(relx=0.02,rely=0.45)
-   Entry1b=Entry(bg='white',width=30,font=('times new roman',18,'bold'),textvariable=bookid_var).place(relx=0.13,rely=0.45,height=30,relwidth=0.16)
+   lbl1b.place(relx=0.03,rely=0.45)
+   Entry1b=Entry(bg='white',width=30,font=('times new roman',18,'bold'),textvariable=bookid_var).place(relx=0.18,height=30.5,relwidth=0.35,rely=0.45)
 
    lbl2=Label(DataFrameLeft,text='SRN No',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
    lbl2.place(relx=0.03,rely=0.25)
-   Entry2=Entry(bg='white',width=20,font=('times new roman',18,'bold'),textvariable=srn_var).place(relx=0.18,rely=0.25,height=30.5,relwidth=0.35)
+   Entry2=Entry(bg='white',width=20,font=('times new roman',18,'bold'),textvariable=srn_var).place(relx=0.18,rely=0.25,height=30.5,relwidth=0.3)
 
    def autoUser():
       userid=srn_var.get()
@@ -92,15 +92,15 @@ def myfunc(root1):
 
    lbl2b=Label(DataFrameLeft,text='Book Title',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
    lbl2b.place(relx=0.02,rely=0.53)
-   Entry2b=Entry(bg='white',width=30,font=('times new roman',18,'bold'),textvariable=booktitle_var).place(relx=0.13,rely=0.53,height=30,relwidth=0.16)
+   Entry2b=Entry(bg='white',width=30,font=('times new roman',18,'bold'),textvariable=booktitle_var).place(relx=0.18,height=30.5,relwidth=0.35,rely=0.53)
 
    lbl3=Label(DataFrameLeft,text='First Name',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
    lbl3.place(relx=0.03,rely=0.31)
    Entry3=Entry(bg='white',width=20,font=('times new roman',18,'bold'),textvariable=first_var).place(relx=0.18,rely=0.31,height=30.5,relwidth=0.35)
 
    lbl3b=Label(DataFrameLeft,text='Author',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
-   lbl3b.place(relx=0.02,rely=0.62)
-   Entry3b=Entry(bg='white',width=30,font=('times new roman',18,'bold'),textvariable=author_var).place(relx=0.13,rely=0.62,height=30,relwidth=0.16)
+   lbl3b.place(relx=0.03,rely=0.62)
+   Entry3b=Entry(bg='white',width=30,font=('times new roman',18,'bold'),textvariable=author_var).place(relx=0.18,height=30.5,relwidth=0.35,rely=0.62)
 
    lbl4=Label(DataFrameLeft,text='Last Name',bg='#ff6e40',fg='black',font=('Times new roman',18,'bold'))
    lbl4.place(relx=0.03,rely=0.37)
@@ -193,7 +193,7 @@ def myfunc(root1):
       b1=[]
       for i in cur2:
          b1.append(i)
-      if(len(b1)==0):
+      if(len(b1)==0)and(len(searchfunc.searchquery)==0):
          a.delete(0, END)
          for item in b:
             a.insert(END, item)
@@ -283,6 +283,7 @@ def myfunc(root1):
    #Info=Frame(root,bg='powder blue',borderwidth=10,relief=RIDGE,padx=20).place(x=0,y=530,width=1275,height=120)
 
 def issuebook():
+   #con.commit()
 
    input_bookid = str(bookid_var.get())
    title = str(booktitle_var.get())
@@ -297,7 +298,7 @@ def issuebook():
    root2 = Tk()
    root2.title("Library")
    # root2.minsize(width=300,height=300)
-   root2.geometry("1920x1080")
+   root2.geometry("600x500")
    valid = False
    type = "student"
    flag = 0
@@ -417,13 +418,16 @@ def issuebook():
       headingLabel = Label(headingFrame1, text="Issue Summary", bg='black', fg='white', font=('Courier', 15))
       headingLabel.place(relx=0, rely=0, relwidth=1, relheight=1)
 
-      game_scroll = Scrollbar(headingFrame1)
+      labelFrame = Frame(root2, bg='black')
+      labelFrame.place(relx=0.1, rely=0.3, relwidth=0.8, relheight=0.5)
+
+      game_scroll = Scrollbar(labelFrame)
       game_scroll.pack(side=RIGHT, fill=Y)
 
-      game_scroll = Scrollbar(headingFrame1, orient='horizontal')
+      game_scroll = Scrollbar(labelFrame, orient='horizontal')
       game_scroll.pack(side=BOTTOM, fill=X)
 
-      my_game = ttk.Treeview(headingFrame1, yscrollcommand=game_scroll.set, xscrollcommand=game_scroll.set)
+      my_game = ttk.Treeview(labelFrame, yscrollcommand=game_scroll.set, xscrollcommand=game_scroll.set)
 
       my_game.pack(fill=BOTH, expand=True)
 
@@ -431,36 +435,36 @@ def issuebook():
       game_scroll.config(command=my_game.xview)
 
       my_game['columns'] = (
-      'SRN', 'FirstName', 'LastName', 'Mobile', 'Email', 'Bookid', 'BookTitle', 'Author', 'DateBorrowed', 'datedue')
+         'sl_no','SRN', 'FirstName', 'LastName', 'Mobile', 'Email', 'Bookid', 'BookTitle', 'Author', 'DateBorrowed', 'datedue')
 
+      # format our column
       my_game.column("#0", width=0, stretch=NO)
-      my_game.column("SRN", anchor=CENTER, width=160)
-      my_game.column("FirstName", anchor=CENTER, width=160)
+      my_game.column("sl_no", anchor=CENTER, width=20)
+      my_game.column("SRN", anchor=CENTER, width=30)
+      my_game.column("FirstName", anchor=CENTER, width=80)
       my_game.column("LastName", anchor=CENTER, width=80)
       my_game.column("Mobile", anchor=CENTER, width=80)
-      my_game.column("Email", anchor=CENTER, width=80)
-      my_game.column("Bookid", anchor=CENTER, width=80)
-      my_game.column("BookTitle", anchor=CENTER, width=80)
+      my_game.column("Email", anchor=CENTER, width=160)
+      my_game.column("Bookid", anchor=CENTER, width=20)
+      my_game.column("BookTitle", anchor=CENTER, width=120)
       my_game.column("Author", anchor=CENTER, width=80)
       my_game.column("DateBorrowed", anchor=CENTER, width=80)
       my_game.column("datedue", anchor=CENTER, width=80)
 
       # Create Headings
       my_game.heading("#0", text="", anchor=CENTER)
+      my_game.heading("sl_no", text="Sl no", anchor=CENTER)
       my_game.heading("SRN", text="SRN", anchor=CENTER)
       my_game.heading("FirstName", text="FirstName", anchor=CENTER)
       my_game.heading("LastName", text="LastName", anchor=CENTER)
-      my_game.heading("Mobile", text="Mobile", anchor=CENTER)
-      my_game.heading("Email", text="Email", anchor=CENTER)
-      my_game.heading("Bookid", text="BookID", anchor=CENTER)
+      my_game.heading("Mobile", text="Mobile No", anchor=CENTER)
+      my_game.heading("Email", text="Email Id", anchor=CENTER)
+      my_game.heading("Bookid", text="BookId", anchor=CENTER)
       my_game.heading("BookTitle", text="BookTitle", anchor=CENTER)
       my_game.heading("Author", text="Author", anchor=CENTER)
       my_game.heading("DateBorrowed", text="DateBorrowed", anchor=CENTER)
-      my_game.heading("datedue", text="datedue", anchor=CENTER)
-
-
-      headingLabel = Label(headingFrame1, text="book issued successfully", bg='black', fg='white', font=('Courier', 15))
-      headingLabel.place(relx=0, rely=0, relwidth=1, relheight=1)
+      my_game.heading("datedue", text="DateDue", anchor=CENTER)
+      # button command=searchfunc
 
 
 
@@ -479,6 +483,7 @@ def issuebook():
       for k in cur:
          m += 1
          my_game.insert(parent='', index='end', iid=m, text='', values=(m,) + k)
+      my_game.pack()
       '''for i in cur:
          l.append(i)
       l1=[]
@@ -494,7 +499,7 @@ def issuebook():
          #y += 0.1
 
       quitBtn = Button(root2, text="Quit", bg='#f7f1e3', fg='black', command=root2.destroy)
-      quitBtn.place(relx=0.53, rely=0.6, relwidth=0.18, relheight=0.08)
+      quitBtn.place(relx=0.53, rely=0.9, relwidth=0.18, relheight=0.08)
 
       root2.mainloop()
       return

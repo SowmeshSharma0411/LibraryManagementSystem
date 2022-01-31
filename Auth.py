@@ -10,6 +10,7 @@ from Manage_Window import *
 # look into auth fns
 
 def auth():
+    global user
     # global cur
     # con = mysql.connector.connect(host="localhost", user="root", password="root", database="test76", port=3306)
     # cur = con.cursor()

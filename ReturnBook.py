@@ -20,7 +20,6 @@ global info,srn
 info=[]
 
 def returnn(l):
-
     srn=l[0]
     first=l[1]
     last=l[2]
@@ -28,13 +27,11 @@ def returnn(l):
     #global SubmitBtn,labelFrame,lb1,bookInfo1,quitBtn,root,Canvas1,status
 
     extractBid = "SELECT SRN, FirstName, LastName, Bookid, BookTitle, Author, DateBorrowed, datedue FROM "+bookTable+" WHERE SRN = '"+str(srn)+"'"
-    #Ive removed Mobile and email for now
     deleteSql = "DELETE FROM borrowers WHERE SRN = "+str(srn)
     cpy=0
     fine=0
     #try:
     cur.execute(extractBid)
-    #con.commit()
     for i in cur:
         info.append(i)
 
@@ -67,7 +64,6 @@ def returnn(l):
     return
     
 def returnBook():
-    
     global quitBtn,Canvas1,con,cur,root,labelFrame
     
     root = Tk()
@@ -125,9 +121,17 @@ def returnBook():
     my_game.heading("BookTitle", text="BookTitle", anchor=CENTER)
     my_game.heading("Author", text="Author", anchor=CENTER)
     my_game.heading("Fine", text="Fine", anchor=CENTER)
-    for i in range(len(info[0])-2):
-        my_game.insert(parent='', index='end', text='', values=info[0][i])
-    my_game.insert(parent='', index='end', text='', values=info[0][-1])
+    '''for i in range(len(info[0])-3):
+        print(info[0][i])'''
+    c=0
+    info[0]=list(info[0])
+    info[0].pop(6)
+    info[0].pop(6)
+    info[0]=tuple(info[0])
+    for i in info:
+        my_game.insert(parent='', index='end', text='', values=i)
+        c+=1
+    my_game.pack()
 
     '''Label(labelFrame, text="%-30s%-60s%-40s%-50s%-50s%-50s%-50s" % (
     'SRN', 'FirstName', 'LastName', 'BID', 'Title', 'Author', 'Fine'), bg='black',

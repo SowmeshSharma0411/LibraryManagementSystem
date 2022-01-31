@@ -33,17 +33,18 @@ def ManageUsers(root1):
     labelFrame2 = Frame(root, bg='black')
     labelFrame2.place(relx=0.1, rely=0.3, relwidth=0.8, relheight=0.5)
 
-    # Display Current Users  # Need to display from database  # must be done by Sowmesh and Suvan
-    Display = Button(labelFrame2, text="Display Current Users", bg='black', fg='white', font=('baskerville old face', 25),command=partial(viewusers,root,1))
-    Display.place(relx=0, rely=0, relwidth=1, relheight=1 / 4)
-
     # Add Users
-    Add = Button(labelFrame2, text="Add New User", bg='black', fg='white', font=('baskerville old face', 25), command=partial(AddUserGUI,root))
-    Add.place(relx=0, rely=1 / 4, relwidth=1, relheight=1 / 4)
+    Add = Button(labelFrame2, text="Add New User", bg='black', fg='white', font=('baskerville old face', 25),
+                 command=partial(AddUserGUI, root))
+    Add.place(relx=0, rely=0, relwidth=1, relheight=1 / 4)
 
     # Delete Users
     Delete = Button(labelFrame2, text='Delete User', bg='black', fg='white', font=('baskerville old face', 25))
-    Delete.place(relx=0, rely=2 / 4, relwidth=1, relheight=1 / 4)
+    Delete.place(relx=0, rely=1 / 4, relwidth=1, relheight=1 / 4)
+
+    # Display Current Users  # Need to display from database  # must be done by Sowmesh and Suvan
+    Display = Button(labelFrame2, text="Display Current Users", bg='black', fg='white', font=('baskerville old face', 25),command=partial(viewusers,root,1))
+    Display.place(relx=0, rely=2/4, relwidth=1, relheight=1 / 4)
 
     quit = Button(labelFrame2, text='Quit', bg='black', fg='white', font=('baskerville old face', 25), command=partial(Manage_Window.ManageWindow,root))
     quit.place(relx=0, rely=3 / 4, relwidth=1, relheight=1 / 4)

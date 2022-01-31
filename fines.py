@@ -13,23 +13,23 @@ def fines(Bor,Ret):
     dateR=datetime.date.today()
 
     days=dateR-dateB
-
     days=str(days)
-    days=int(days[0])
+    days=str(days[0:days.index(" ")])
+    days=int(days)
 
     fine=0
     Lost=0
     if(days>14):
-        fine+=1*days
+        fine+=1*(days-14)
         if(days>24):
-            fine+=10*(days-10)
+            fine+=10*(days-14-10)
             if(days>39):
                 Lost=1
 
     if(Lost==1):
         fine+=2000 #2k Extra Fine : Fr the book + inconvenience caused :
         #If this fine is not paid within the next 15 days : Library Membership Revoked : The student is Excommunicado : A bounty of 10000INR on his head :
-
+    print(fine)
     #For now no lost books
     '''if(days>54):
         #Membership Revoked : Remove User from Users table :

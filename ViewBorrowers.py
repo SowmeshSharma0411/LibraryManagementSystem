@@ -45,7 +45,7 @@ def View(root1,val):
     headingLabel5.place(relx=0, rely=0, relwidth=1, relheight=1)
 
     game_frame = Frame(ws, height=800, width=800, bg="black")
-    game_frame.place(relx=0.05, rely=0.2, relwidth=0.9, relheight=0.40)
+    game_frame.place(relx=0.03, rely=0.3, relwidth=0.95, relheight=0.55)
 
     # Canvas1.pack(expand=True, fill=BOTH)
     # game_frame.pack(fill=BOTH,expand=True)
@@ -70,12 +70,12 @@ def View(root1,val):
 
     # format our column
     my_game.column("#0", width=0, stretch=NO)
-    my_game.column("SRN", anchor=CENTER, width=160)
-    my_game.column("FirstName", anchor=CENTER, width=160)
+    my_game.column("SRN", anchor=CENTER, width=30)
+    my_game.column("FirstName", anchor=CENTER, width=80)
     my_game.column("LastName", anchor=CENTER, width=80)
-    my_game.column("Email", anchor=CENTER, width=80)
-    my_game.column("Bookid", anchor=CENTER, width=80)
-    my_game.column("BookTitle", anchor=CENTER, width=80)
+    my_game.column("Email", anchor=CENTER, width=120)
+    my_game.column("Bookid", anchor=CENTER, width=20)
+    my_game.column("BookTitle", anchor=CENTER, width=120)
     my_game.column("Author", anchor=CENTER, width=80)
     my_game.column("DateBorrowed", anchor=CENTER, width=80)
     my_game.column("datedue", anchor=CENTER, width=80)
@@ -95,25 +95,25 @@ def View(root1,val):
 
     global searchtype, searchentry
 
-    lbl1 = Label(ws, text='Search Type', bg='#ff6e40', fg='black', font=('Times new roman', 18, 'bold'))
-    lbl1.place(relx=0.01, rely=0.7, relwidth=0.4, relheight=0.03)
+    lbl1 = Label(ws, text='Search Type', bg='#ff6e40', fg='black', font=('Times new roman', 15, 'bold'))
+    lbl1.place(x=2, rely=0.19, relwidth=0.4, relheight=0.03)
     searchtype = tkinter.ttk.Combobox(ws, font=('times new roman', 18, 'bold'), width=13,
                                       state='readonly')  # adding drop down box
     searchtype['value'] = ('SRN','FirstName','LastName','BookTitle','Author','DateBorrowed','datedue')  # values in the drop down box
-    searchtype.place(relx=0.07, rely=0.73, relwidth=0.2, relheight=0.03)
+    searchtype.place(relx=0.06, rely=0.23, relwidth=0.18, relheight=0.05)
 
     def searching():
         searchfunc.search("borrowers", 4)
         con.commit()
         View(ws, 2)
 
-    searchentry = Entry(ws, font=('times new roman', 15, 'bold'))
-    searchentry.place(relx=0.2, rely=0.73, relwidth=0.7, relheight=0.03)
-    searchbutton = Button(ws, text="search", bg='#d1ccc0', fg='black', font=('times new roman', 20), command=searching)
-    searchbutton.place(relx=0.3, rely=0.84, relwidth=0.18, relheight=0.05)
+    searchentry = Entry(ws, font=('times new roman', 18, 'bold'))
+    searchentry.place(relx=0.25, rely=0.23, relwidth=0.55, relheight=0.05)
+    searchbutton = Button(ws, text="Search", bg='#d1ccc0', fg='black', font=('times new roman', 20), command=searching)
+    searchbutton.place(relx=0.82, rely=0.23, relwidth=0.14, relheight=0.05)
     quitbutton = Button(ws, text="Quit", bg='#d1ccc0', fg='black', font=('times new roman', 20),
                         command=partial(main.myfunc,ws))
-    quitbutton.place(relx=0.5, rely=0.84, relwidth=0.18, relheight=0.05)
+    quitbutton.place(relx=0.36, rely=0.87, relwidth=0.18, relheight=0.05)
 
     m = 0
     for k in cur:
