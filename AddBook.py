@@ -79,14 +79,14 @@ def addBook(root1):
     lb2 = Label(labelFrame, text="Title : ", bg='black', fg='white',font=('courier', 23))
     lb2.place(relx=0.07, rely=0.2)
 
-    bookInfo2 = Entry(labelFrame,font=('times new roman', 15, 'bold'))
+    bookInfo2 = Entry(labelFrame,font=('times new roman', 18, 'bold'))
     bookInfo2.place(relx=0.2, rely=0.21, relwidth=0.7, relheight=0.08)
 
     # Book Author
     lb3 = Label(labelFrame, text="Author : ", bg='black', fg='white',font=('courier', 23))
     lb3.place(relx=0.07, rely=0.34)
 
-    bookInfo3 = Entry(labelFrame,font=('times new roman', 15, 'bold'))
+    bookInfo3 = Entry(labelFrame,font=('times new roman', 18, 'bold'))
     bookInfo3.place(relx=0.2, rely=0.35, relwidth=0.7, relheight=0.08)
 
     # Book Status
@@ -97,10 +97,10 @@ def addBook(root1):
     bookInfo4.place(relx=0.3, rely=0.65, relwidth=0.62, relheight=0.08)'''
 
     # Submit Button
-    SubmitBtn = Button(root, text="Submit", bg='#d1ccc0', fg='black',font=('times new roman',20), command=bookRegister)
+    SubmitBtn = Button(root, text="Submit", bg='#f7f1e3', fg='black',font=('times new roman',20), command=bookRegister)
     SubmitBtn.place(relx=0.3, rely=0.7, relwidth=0.18, relheight=0.08)
 
-    quitBtn = Button(root, text="Quit", bg='#f7f1e3', fg='black', command=partial(Manage_Window.ManageBooks,root))
+    quitBtn = Button(root, text="Quit", bg='#f7f1e3', fg='black', font=('times new roman',20),command=partial(Manage_Window.ManageBooks,root))
     quitBtn.place(relx=0.5, rely=0.7, relwidth=0.18, relheight=0.08)
 
     root.mainloop()

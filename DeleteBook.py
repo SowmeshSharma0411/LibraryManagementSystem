@@ -50,10 +50,10 @@ def select(e):
     au=author[i]
 
     DeleteBtn = Button(root, text="Delete", bg='#f7f1e3', fg='black',font=('times new roman', 20), command=partial(deleteBook,title))
-    DeleteBtn.place(relx=0.3, rely=0.7, relwidth=0.18, relheight=0.08)
+    DeleteBtn.place(relx=0.28, rely=0.83, relwidth=0.18, relheight=0.08)
 
     quitBtn = Button(root, text="Quit", bg='#f7f1e3', fg='black',font=('times new roman', 20), command=partial(Manage_Window.ManageBooks,root))
-    quitBtn.place(relx=0.53, rely=0.9, relwidth=0.18, relheight=0.08)
+    quitBtn.place(relx=0.53, rely=0.83, relwidth=0.18, relheight=0.08)
 
     root.mainloop()
     
@@ -71,7 +71,7 @@ def delete(root1):
     
     Canvas1 = Canvas(root)
     
-    Canvas1.config(bg="#ff6e40")
+    Canvas1.config(bg="#006B38")
     Canvas1.pack(expand=True,fill=BOTH)
         
     headingFrame1 = Frame(root,bg="#FFBB00",bd=5)
@@ -99,22 +99,22 @@ def delete(root1):
         author.append(x)
 
     # creating DropBox
-    lb2 = Label(labelFrame, text="Book Title : ", bg='black', fg='white')
-    lb2.place(relx=0.05, rely=0.35)
+    lb2 = Label(labelFrame, text="Book Title : ", bg='black', fg='white',font=('courier', 23))
+    lb2.place(relx=0.07, rely=0.2)
 
-    bookInfo1 = ttk.Combobox(root,value=b,font=('times new roman',18,'bold'))
+    bookInfo1 = ttk.Combobox(labelFrame,value=b,font=('times new roman',18,'bold'),state='readonly')
     #bookinfo1.current(0)
     bookInfo1.pack()
     bookInfo1.place(relx=0.2, rely=0.21, relwidth=0.7, relheight=0.08)
 
     #DropBox 2 :
-    lb3 = Label(labelFrame, text="Author", bg='black', fg='white')
-    lb3.place(relx=0.05, rely=0.5)
+    lb3 = Label(labelFrame, text="Author", bg='black', fg='white',font=('courier', 23))
+    lb3.place(relx=0.07, rely=0.4)
 
-    bookInfo2 = ttk.Combobox(root, value=author,font=('times new roman',18,'bold'))
+    bookInfo2 = ttk.Combobox(labelFrame, value=author,font=('times new roman',18,'bold'),state='readonly')
     # bookinfo2.current(0)
     bookInfo2.pack()
-    bookInfo2.place(relx=0.2, rely=0.35, relwidth=0.7, relheight=0.08)
+    bookInfo2.place(relx=0.2, rely=0.41, relwidth=0.7, relheight=0.08)
 
     bookInfo1.bind("<<ComboboxSelected>>", select)
 
