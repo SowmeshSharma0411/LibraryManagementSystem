@@ -106,42 +106,6 @@ def myfunc(root1):
    lbl4.place(relx=0.03,rely=0.37)
    Entry4=Entry(bg='white',width=20,font=('times new roman',18,'bold'),textvariable=last_var).place(relx=0.18,rely=0.37,height=30.5,relwidth=0.35)
 
-   '''lbl4b=Label(DataFrameLeft,text='Borrow Date',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl4b.place(x=340,y=235)
-   Entry4b=Entry(bg='white',width=30,font=('times new roman',13,'bold'),textvariable=dateborrowed_var).place(x=460,y=235,height=30)'''
-
-   '''lbl5=Label(DataFrameLeft,text='Address Line 1',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl5.place(x=10,y=270)
-   Entry5=Entry(bg='white',width=20,font=('times new roman',13,'bold')).place(x=150,y=270,height=30)'''
-
-   '''lbl5b=Label(DataFrameLeft,text='Due Date',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl5b.place(x=340,y=270)
-   Entry5b=Entry(bg='white',width=30,font=('times new roman',13,'bold'),textvariable=datedue_var).place(x=460,y=270,height=30)'''
-
-   '''lbl6=Label(DataFrameLeft,text='Address Line 2',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl6.place(x=10,y=305)
-   Entry6=Entry(bg='white',width=20,font=('times new roman',13,'bold')).place(x=150,y=305,height=30)'''
-
-   '''lbl6b=Label(DataFrameLeft,text='Overdue',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl6b.place(x=340,y=305)
-   Entry6b=Entry(bg='white',width=30,font=('times new roman',13,'bold')).place(x=460,y=305,height=30)'''
-
-   '''lbl7=Label(DataFrameLeft,text='Postal code',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl7.place(x=10,y=340)
-   Entry7=Entry(bg='white',width=20,font=('times new roman',13,'bold')).place(x=150,y=340,height=30)'''
-
-   '''lbl7b=Label(DataFrameLeft,text='Overdue Fine',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl7b.place(x=340,y=340)
-   Entry7b=Entry(bg='white',width=30,font=('times new roman',13,'bold')).place(x=460,y=340,height=30)'''
-
-   '''lbl8=Label(DataFrameLeft,text='Mobile',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl8.place(x=10,y=375)
-   Entry8=Entry(bg='white',width=20,font=('times new roman',13,'bold')).place(x=150,y=375,height=30)'''
-
-   '''lbl8b=Label(DataFrameLeft,text='Actual Price',bg='powder blue',font=('Times new roman',15,'bold'))
-   lbl8b.place(x=340,y=375)
-   Entry8b=Entry(bg='white',width=30,font=('times new roman',13,'bold')).place(x=460,y=375,height=30)'''
-
    # ===============================================================DataFrameRight=========================================================
 
    DataFrameRight=LabelFrame(frame,bg='#ff6e40',fg='midnightblue',text='Book Details',font=('algerian',15,'bold'),borderwidth='10',relief=RIDGE,padx=0,pady=0).place(x=750,y=102,width=525,height=445)
@@ -211,15 +175,8 @@ def myfunc(root1):
 
       scrlbar.config(command=a.yview)
 
-      #cur.execute("Update books SET flag=0")
-      #con.commit()
-      #Cursor is taking rsults from the prev search
-
-   #Hafta add a Go Button to get the thing working.
    b1 = Button(root, bg='chocolate', fg='black', borderwidth=5, relief=RAISED, text='Go',
                font=('Times new roman',15, 'bold'), command=partial(searching,b)).place(x=1170, y=130, height=35,relwidth=0.07)
-      #cur.execute("UPDATE books SET flag=0 WHERE title =%s" %(info1[i]))
-   #search_var = always str
 
    for item in b:
       a.insert(END,item)
@@ -232,9 +189,6 @@ def myfunc(root1):
    scrlbar.config(command=a.yview())
 
    scrlbar.config(command=a.yview)
-   #txt=Text(DataFrameRight,font=('Times new roman',12,'bold'),width=30,height=17).place(x=1010,y=130)      #ListBox
-
-   #extractBid = "select SRN, FirstName, LastName, Mobile, Email, Bookid, BookTitle, Author, DateBorrowed, datedue from borrowers where SRN = '" + str(srn_var) + "'"
 
    def autoRet():
       l=[]
@@ -250,7 +204,6 @@ def myfunc(root1):
       booktitle_var.set(info[0][1])
       author_var.set(info[0][2])
 
-      #time.sleep(5)
       returnn(l)
 
    def Exit():
@@ -280,10 +233,7 @@ def myfunc(root1):
 
    # ===================================================Info Bar==================================
 
-   #Info=Frame(root,bg='powder blue',borderwidth=10,relief=RIDGE,padx=20).place(x=0,y=530,width=1275,height=120)
-
 def issuebook():
-   #con.commit()
 
    input_bookid = str(bookid_var.get())
    title = str(booktitle_var.get())
@@ -297,7 +247,6 @@ def issuebook():
 
    root2 = Tk()
    root2.title("Library")
-   # root2.minsize(width=300,height=300)
    root2.geometry("600x500")
    valid = False
    type = "student"
@@ -309,16 +258,6 @@ def issuebook():
       a = k[0]
       if (a == input_bookid): # checks if the book id inputed is valid by cross checking with the existing book ids in the book database
          valid = True
-   '''if valid == False:
-      headingLabel = Label(root2, text="book id entered invalid", bg='black', fg='white', font=('Courier', 15))
-      headingLabel.place(relx=0, rely=0, relwidth=1, relheight=1)
-      quitBtn = Button(root2, text="Quit", bg='#f7f1e3', fg='black', command=root2.destroy)
-      quitBtn.place(relx=0.53, rely=0.9, relwidth=0.18, relheight=0.08)
-      root2.mainloop()
-      return  # exits the program once the quit button is pressed and returns to the main menu'''
-
-   # checking valid user id code, have not done it yet since there is no user database
-   # checking which type the user is, faculty or student, have not done yet since there is no user database yet
 
    cur.execute("select * from borrowers where SRN=%s", (input_userid,))
    #If the person has some book already : He first has to return that : He will not be allowed to borrow any other book :
@@ -332,50 +271,6 @@ def issuebook():
       return
 
    else:
-
-      '''for k in cur:
-         if k[8] != None:
-      
-            duedate2 = datetime.strptime(k[8], "%Y-%m-%d")
-            if datetime.now() > duedate2:  # checks whether the current date is after the due date, have figured out how to compare dates (but for now I have used ">")
-               l.append(k + (((
-                                         datetime.now() - duedate2).days) * 2,))  # prints due books details such as book name, borrowed date,etc. it calculates fine for the due books and prints it ---Fine comes during return book only : 
-               flag = 1'''
-
-      #if type == "student" :
-      #print("these books have fines pending for them, please pay the fine at the earliest to borrow a new book")
-
-      # gui code for a dailog box specifying the above message
-      '''headingLabel = Label(root2,
-                           text="these books have fines pending for them, please pay the fine at the earliest to borrow a new book",
-                           bg='black', fg='white', font=('Courier', 15))
-      headingLabel.place(relx=0, rely=0, relwidth=1, relheight=1)
-      Label(root2, text="%-30s%-30s%-75s%-60s%-30s%-50s%-50s" % (
-      'sl_no', 'book id', 'title', 'author', "id", "name", "last name"), bg='black', fg='white').place(relx=0.07,
-                                                                                                       rely=0.1)
-      Label(root2, text="----------------------------------------------------------------------------", bg='black',
-            fg='white').place(relx=0.05, rely=0.2)
-
-      c = 1
-      y = 0.3
-      print(l)
-      for i in l:
-         Label(root2, text="%-30s%-30s%-60s%-60s%-30s%-50s%-50s" % (str(c), i[1], i[2], i[3], i[4], i[5], i[6]),
-               bg='black', fg='white').place(relx=0.08, rely=y)
-         c += 1
-         y += 0.1
-
-      quitBtn = Button(root2, text="Quit", bg='#f7f1e3', fg='black', command=root2.destroy)
-      quitBtn.place(relx=0.53, rely=0.6, relwidth=0.18, relheight=0.08)
-
-      root2.mainloop()
-      return  # exits the program once the quit button is pressed and returns to the main menu
-      # exit button to exit program and return to main menu'''
-
-      '''if type == "faculty":
-         print("please return the book at the earliest to borrow a new book")
-         # gui code for a dailog box specifying the above message
-         # exit button to exit program and return to main menu'''
 
       fetchuser="SELECT SRN,name,Last_name,Branch,semester,mobile_no,email_id FROM users WHERE SRN = "+str(input_userid)
       cur.execute(fetchuser)
@@ -464,16 +359,6 @@ def issuebook():
       my_game.heading("Author", text="Author", anchor=CENTER)
       my_game.heading("DateBorrowed", text="DateBorrowed", anchor=CENTER)
       my_game.heading("datedue", text="DateDue", anchor=CENTER)
-      # button command=searchfunc
-
-
-
-      '''Label(root2, text="%-30s%-30s%-75s%-60s%-30s%-50s%-50s%-50s%-50s%-50s" % (
-         'SRN','FirstName','LastName','Mobile','Email','Bookid','BookTitle','Author','DateBorrowed','datedue'), bg='black', fg='white').place(relx=0.07,
-                                                                                                          rely=0.1)
-      Label(root2, text="----------------------------------------------------------------------------", bg='black',
-            fg='white').place(relx=0.05, rely=0.2)'''
-
       c = 1
       y = 0.3
       l=[]
@@ -484,36 +369,14 @@ def issuebook():
          m += 1
          my_game.insert(parent='', index='end', iid=m, text='', values=(m,) + k)
       my_game.pack()
-      '''for i in cur:
-         l.append(i)
-      l1=[]
-      #print(l)
-      for i in l:
-         l1=[]
-         l1=(i[0],i[1],i[2],i[3],i[4],i[5],i[6],i[7],i[8],i[9])
-         break
-      my_game.insert(parent='', index='end', text='', values=l1)'''
-      '''Label(root2, text="%-30s%-30s%-60s%-60s%-30s%-50s%-50s%-50s%-50s%-50s" %(l1),
-            bg='black', fg='white').place(relx=0.08, rely=y)'''
-         #c += 1
-         #y += 0.1
 
       quitBtn = Button(root2, text="Quit", bg='#f7f1e3', fg='black', command=root2.destroy)
       quitBtn.place(relx=0.53, rely=0.9, relwidth=0.18, relheight=0.08)
 
       root2.mainloop()
       return
-
-   #"Fetch" button to autofill first and last name after SRN : Suhas Include this Pls :
-   # Borrow summary proper display of table : Formatting of strs thats all :--Suhas Do the formatting : This is the old window :
-   #Search Optn
-   #Also : TextBoxes look little off : correct em :
    #For autoEmails : A window List of all PPl who havent submitted the books on time; -Later
 
-
-   #Stitch the fncs proeprly : quit Btns :(HOME) --Done
-   #Update Search to search by FirstName : Last name, Email ID -Trying - done
    #Returned Successfully in return screen : + lil error handling : like no user while borrowing : -Imp
    #Add a dynamic alert/Notif in dashboard(eg : "This book" due date is on "this date")
-   #GUI : of everything : align everything first : + Borrow window : make fonts the same.
 

@@ -30,7 +30,6 @@ def returnn(l):
     deleteSql = "DELETE FROM borrowers WHERE SRN = "+str(srn)
     cpy=0
     fine=0
-    #try:
     cur.execute(extractBid)
     for i in cur:
         info.append(i)
@@ -58,9 +57,6 @@ def returnn(l):
     info[0]=tuple(info[0])
 
     returnBook()
-
-    '''except:
-        messagebox.showinfo("Error", "SRN Entered isnt registered in the 'Borrowers List'")'''
     return
     
 def returnBook():
@@ -133,18 +129,8 @@ def returnBook():
         c+=1
     my_game.pack()
 
-    '''Label(labelFrame, text="%-30s%-60s%-40s%-50s%-50s%-50s%-50s" % (
-    'SRN', 'FirstName', 'LastName', 'BID', 'Title', 'Author', 'Fine'), bg='black',
-          fg='white').place(relx=0.07, rely=0.1)
-    Label(labelFrame, text="----------------------------------------------------------------------------", bg='black',
-          fg='white').place(relx=0.05, rely=0.2)
-    Label(labelFrame, text="%-30s%-60s%-40s%-50s%-50s%-50s%-50s" % (
-    info[0][0], info[0][1], info[0][2], info[0][3], info[0][4], info[0][5], info[1]), bg='black',
-          fg='white').place(relx=0.07, rely=0.3)'''
-
     quitBtn = Button(root,text="Quit",bg='#f7f1e3', fg='black', command=root.destroy)
     quitBtn.place(relx=0.53,rely=0.9, relwidth=0.18,relheight=0.08)
     
     root.mainloop()
 #For Custom Error msg if user cant borrow : cuz he is not registered in the users database :
-#Dont run in loop

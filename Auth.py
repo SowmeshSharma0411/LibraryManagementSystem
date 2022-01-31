@@ -18,8 +18,8 @@ def auth():
     user = info1.get()
     passs = info2.get()
 
-    Librarian = "abc"
-    password = "abc"
+    Librarian = "Sowmesh Sharma"
+    password = "sharmasowmesh123"
 
     if (user != Librarian) or (passs != password):
         quit()

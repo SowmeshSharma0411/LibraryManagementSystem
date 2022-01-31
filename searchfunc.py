@@ -35,13 +35,6 @@ def search(table,val):
     except:
         print("searchfunc: table does not exist. table names are case sensitive")
         return
-
-    '''try:
-        cur.execute("ALTER TABLE "+table+" ADD COLUMN flag int")
-    except:
-        print("searchfunc: table column flag already exists, handling error by deleting column and adding it again")
-        cur.execute("ALTER TABLE "+table+" DROP COLUMN flag")
-        cur.execute("ALTER TABLE "+table+" ADD COLUMN flag int")'''
     cur.execute("Update "+table+" SET flag=0")
     con.commit()
 

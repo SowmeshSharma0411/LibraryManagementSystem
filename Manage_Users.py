@@ -49,69 +49,28 @@ def ManageUsers(root1):
     quit = Button(labelFrame2, text='Quit', bg='black', fg='white', font=('baskerville old face', 25), command=partial(Manage_Window.ManageWindow,root))
     quit.place(relx=0, rely=2 / 3, relwidth=1, relheight=1 / 3)
 
-    # Delete Users # by Sowmesh and Suvan
-    '''Delete = Button(labelFrame2, text='Delete User', bg='black', fg='white', font=('courier', 15))
-    Delete.place(relx=0, rely=3 / 4, relwidth=1, relheight=1 / 4)'''
-
     root.mainloop()
 
 def viewusers(root1,val):
     root1.destroy()
     
     global search
-    '''def searchfunc():
-        global search
-        nonlocal cur,cur4
-        #if searchentry.get()!="":
-        search=searchentry.get()
-        #code for flag
-        try:
-         cur.execute("ALTER TABLE users ADD COLUMN flag int")
-        except:
-              pas=1
-              cur.execute("ALTER TABLE users DROP flag ")
-              cur.execute("ALTER TABLE users ADD COLUMN flag int")
-        cur.execute("SELECT * FROM users")
-        for k in cur:
-                 try:
-                   if k[1]==int(search):
-                        searchint=int(search)
-                        cur4.execute("UPDATE users SET flag=1 WHERE srn=%s",(searchint,))
-                 except:
-                    print("int value conversion invalid")
-                    #ErrorBox has to be displayed :
 
-                 if k[2].upper()==search.upper():
-                    cur4.execute("UPDATE users SET flag=1 WHERE name=%s",(search,))
-        #print(search)
-        con.commit()
-        ws.destroy()
-        viewusers()'''
-
-
-
-    
     con = mysql.connector.connect(host="localhost", user="root", password="root", database="db", port=3306)
     cur = con.cursor(buffered=True)
     cur4=con.cursor(buffered=True)
-    
-    #if search!=None and search!="":
+
     if(val==2):
 
        cur.execute("SELECT SRN,name,Last_name,Branch,semester,mobile_no,email_id FROM users WHERE flag=1")
     if(val==1):
         cur.execute("SELECT SRN,name,Last_name,Branch,semester,mobile_no,email_id FROM users")
-        
-
-    '''else :
-        cur.execute("SELECT SRN,name,Last_name,Branch,semester,mobile_no,email_id FROM users")'''
 
 
     ws  = Tk()
     ws.title('PythonGuides')
     
     ws['bg'] = '#ff6e40'
-    #ws.pack(fill=BOTH,expand=True)
 
     width= ws.winfo_screenwidth() 
     height= ws.winfo_screenheight()
@@ -128,9 +87,6 @@ def viewusers(root1,val):
 
     game_frame = Frame(ws,height=800,width=800,bg="black")
     game_frame.place(relx=0.03, rely=0.3, relwidth=0.95, relheight=0.55)
-  
-    #Canvas1.pack(expand=True, fill=BOTH)
-    #game_frame.pack(fill=BOTH,expand=True)
 
     #scrollbar
     game_scroll = Scrollbar(game_frame)
@@ -200,12 +156,6 @@ def viewusers(root1,val):
     for k in cur:
         m+=1
         my_game.insert(parent='',index='end',iid=m,text='',values=(m,)+k)
-        #Eroor box has to be displayed :
-
-    #print("exit loop tkinter")
-    #print(b)
-
-    #No records found :
 
 
 
@@ -215,11 +165,8 @@ def adduser():
     mobile_no2=mobile_no.get()
     a=info5.get()
     b=info5b.get()
-    #print(a,b)
     c=comMemberc.get()
     d=comMemberd.get()
-    #print(type(c),type(d))
-    #print(c,d)
     con = mysql.connector.connect(host="localhost", user="root", password="root", database="db", port=3306)
     cur = con.cursor()
     if emailid!=""  and mobile_no2.isdigit() and a!="" and b!="" and c!="" and d.isdigit():
@@ -229,14 +176,10 @@ def adduser():
        con.commit()
        root.destroy()
      except:
-        #print("invalid")
         messagebox.showinfo('Error', 'Values entered invalid, Please enter them again:')
-        #print("pass")
         AddUserGUI(root)
     else:
-        #print("invalid")
         messagebox.showinfo('Error', 'Values entered invalid, Please enter them again:')
-        #print("pass")
         AddUserGUI(root)
 
     

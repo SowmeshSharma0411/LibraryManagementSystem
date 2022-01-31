@@ -16,20 +16,6 @@ cur = con.cursor()
 
 # Enter Table Names here
 bookTable = "books" #Book Table
-'''b=[]
-author=[]
-
-s = "SELECT title FROM books"
-cur.execute(s)
-
-for x in cur:
-    b.append(x)
-
-s = "SELECT author FROM books"
-cur.execute(s)
-
-for x in cur:
-    author.append(x)'''
 
 def select(e):
 
@@ -117,14 +103,6 @@ def delete(root1):
     bookInfo2.place(relx=0.2, rely=0.41, relwidth=0.7, relheight=0.08)
 
     bookInfo1.bind("<<ComboboxSelected>>", select)
-
-    
-    #Delete Button
-    '''DeleteBtn = Button(root,text="Delete",bg='#d1ccc0', fg='black',command=deleteBook)
-    DeleteBtn.place(relx=0.28,rely=0.9, relwidth=0.18,relheight=0.08)
-    
-    quitBtn = Button(root,text="Quit",bg='#f7f1e3', fg='black', command=root.destroy)
-    quitBtn.place(relx=0.53,rely=0.9, relwidth=0.18,relheight=0.08)'''
     
     root.mainloop()
 
@@ -139,8 +117,5 @@ def deleteBook(title):
         messagebox.showinfo("Please enter the correct title of the book")
 
     bookInfo1.delete(0, END)
-    #root.destroy()
-#Some pRoblem here : colon isnt acccpeted as a valid symbol
+#Some Problem here : colon isnt acccpeted as a valid symbol
 #What if a person wants to delete a book from entry evnthough another person has borrowed it :
-
-#Suhas Align the Drop down box n all : make the screen look neater :

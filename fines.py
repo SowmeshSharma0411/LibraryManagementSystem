@@ -1,7 +1,8 @@
-#Fine System written down in the PESU Elec assignment book :
-#date=(yr,month,day,hr,min)
-#As the person borrows the book : Suvan send me the borrow details as a tuple 'date' : As he borrows also display a msg box : Details of borrow :
-#As the person returns a book another date is returned :
+#14days = borrow period
+#10 days post borrow : 1rs/day = fine
+#Next 15 days : 1rs/day + 10rs/day + fine(compounded)
+#If days b/w borrow and returned >39 : Fine+=2000 (book=lost : we will implement this later)
+
 
 from tkinter import *
 from tkinter import messagebox
@@ -30,13 +31,9 @@ def fines(Bor,Ret):
 
     if(Lost==1):
         fine+=2000 #2k Extra Fine : Fr the book + inconvenience caused :
-        #If this fine is not paid within the next 15 days : Library Membership Revoked : The student is Excommunicado : A bounty of 10000INR on his head :
+        #If this fine is not paid within the next 15 days : Library Membership Revoked :
     print(fine)
     #For now no lost books
-    '''if(days>54):
-        #Membership Revoked : Remove User from Users table :
-        #Hafta Add GUI Pop up box :
-        messagebox.showwarning("Goodbye!!","Library User Membership Revoked/nYou are Excommunicado")'''
 
     return fine
 

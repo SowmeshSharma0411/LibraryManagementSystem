@@ -20,7 +20,6 @@ def View(root1,val):
     cur = con.cursor(buffered=True)
     cur4 = con.cursor(buffered=True)
 
-    # if search!=None and search!="":
     if (val == 2):
         cur.execute("SELECT SRN,FirstName,LastName,Email,Bookid,BookTitle,Author,DateBorrowed,datedue FROM borrowers WHERE flag=1")
     if (val == 1):
@@ -30,7 +29,6 @@ def View(root1,val):
     ws.title('PythonGuides')
 
     ws['bg'] = '#ff6e40'
-    # ws.pack(fill=BOTH,expand=True)
 
     width = ws.winfo_screenwidth()
     height = ws.winfo_screenheight()
@@ -46,9 +44,6 @@ def View(root1,val):
 
     game_frame = Frame(ws, height=800, width=800, bg="black")
     game_frame.place(relx=0.03, rely=0.3, relwidth=0.95, relheight=0.55)
-
-    # Canvas1.pack(expand=True, fill=BOTH)
-    # game_frame.pack(fill=BOTH,expand=True)
 
     # scrollbar
     game_scroll = Scrollbar(game_frame)
@@ -117,9 +112,4 @@ def View(root1,val):
 
     m = 0
     for k in cur:
-        #m += 1
         my_game.insert(parent='', index='end', text='', values= k)
-        # Eroor box has to be displayed :
-
-    # print("exit loop tkinter")
-    # print(b)
