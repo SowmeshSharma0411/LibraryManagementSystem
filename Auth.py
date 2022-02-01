@@ -22,7 +22,8 @@ def auth():
     password = "sharmasowmesh123"
 
     if (user != Librarian) or (passs != password):
-        quit()
+        messagebox.showerror("ERROR!","Incorrect Username/Password")
+        return
         #UserId doesnt exist :
     else:
         ManageWindow(root)
@@ -70,7 +71,7 @@ def gui_auth(root1):
     lb2 = Label(labelFrame, text="Password", bg='black', fg='white',font=('courier',27))
     lb2.place(relx=0.07, rely=0.4)
 
-    info2 = Entry(labelFrame,font=('times new roman',15,'bold'))
+    info2 = Entry(labelFrame,font=('times new roman',15,'bold'),show='*')
     info2.place(relx=0.3, rely=0.4, relwidth=0.62,relheight=0.12)
 
     # Submit Button

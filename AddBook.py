@@ -63,14 +63,14 @@ def addBook(root1):
     labelFrame.place(relx=0.05, rely=0.2, relwidth=0.9, relheight=0.7)
 
     # Title
-    lb2 = Label(labelFrame, text="Title : ", bg='black', fg='white',font=('courier', 23))
+    lb2 = Label(labelFrame, text="Title ", bg='black', fg='white',font=('courier', 23))
     lb2.place(relx=0.07, rely=0.2)
 
     bookInfo2 = Entry(labelFrame,font=('times new roman', 18, 'bold'))
     bookInfo2.place(relx=0.2, rely=0.21, relwidth=0.7, relheight=0.08)
 
     # Book Author
-    lb3 = Label(labelFrame, text="Author : ", bg='black', fg='white',font=('courier', 23))
+    lb3 = Label(labelFrame, text="Author ", bg='black', fg='white',font=('courier', 23))
     lb3.place(relx=0.07, rely=0.34)
 
     bookInfo3 = Entry(labelFrame,font=('times new roman', 18, 'bold'))
