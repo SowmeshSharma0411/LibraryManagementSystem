@@ -319,15 +319,11 @@ def issuebook():
       game_scroll = Scrollbar(labelFrame)
       game_scroll.pack(side=RIGHT, fill=Y)
 
-      game_scroll = Scrollbar(labelFrame, orient='horizontal')
-      game_scroll.pack(side=BOTTOM, fill=X)
-
-      my_game = ttk.Treeview(labelFrame, yscrollcommand=game_scroll.set, xscrollcommand=game_scroll.set)
+      my_game = ttk.Treeview(labelFrame, yscrollcommand=game_scroll.set)
 
       my_game.pack(fill=BOTH, expand=True)
 
       game_scroll.config(command=my_game.yview)
-      game_scroll.config(command=my_game.xview)
 
       my_game['columns'] = (
          'sl_no','SRN', 'FirstName', 'LastName', 'Mobile', 'Email', 'Bookid', 'BookTitle', 'Author', 'DateBorrowed', 'datedue')

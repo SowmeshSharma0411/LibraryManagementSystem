@@ -92,16 +92,12 @@ def viewusers(root1,val):
     game_scroll = Scrollbar(game_frame)
     game_scroll.pack(side=RIGHT, fill=Y)
 
-    game_scroll = Scrollbar(game_frame,orient='horizontal')
-    game_scroll.pack(side= BOTTOM,fill=X)
-
-    my_game = ttk.Treeview(game_frame,yscrollcommand=game_scroll.set, xscrollcommand =game_scroll.set)
+    my_game = ttk.Treeview(game_frame,yscrollcommand=game_scroll.set)
 
 
     my_game.pack(fill=BOTH,expand=True)
 
     game_scroll.config(command=my_game.yview)
-    game_scroll.config(command=my_game.xview)
 
     #define our column
      
